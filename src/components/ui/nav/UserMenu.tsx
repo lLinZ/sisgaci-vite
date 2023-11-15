@@ -31,7 +31,7 @@ export const UserMenu = () => {
     return (
         <Box>
             <IconButton onClick={handleClick}>
-                <Avatar alt='User Avatar' sx={{ width: 40, height: 40, bgcolor: authState.color }}>{authState.logged ? authState.nombre.substring(0, 1) + authState.apellido.substring(0, 1) : 'U'}</Avatar>
+                <Avatar alt='User Avatar' sx={{ width: 40, height: 40, bgcolor: authState.color }}>{authState.logged ? authState.first_name.substring(0, 1) + authState.lastname.substring(0, 1) : 'USR'}</Avatar>
             </IconButton>
             <Menu open={open} anchorEl={anchorEl} onClose={handleClose} onClick={handleClose}
                 PaperProps={styles.paperProps}

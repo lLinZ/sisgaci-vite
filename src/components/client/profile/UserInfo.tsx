@@ -5,14 +5,14 @@ import { AuthContext } from "../../../context/auth";
 
 export const UserInfo: FC = () => {
     const { authState } = useContext(AuthContext);
-    const { nombre, apellido, email, telefono } = authState;
+    const { first_name, lastname, email, phone } = authState;
     return (
         <Box sx={{ p: 2, mb: 2 }}>
             <Typography variant="overline" fontWeight="bold">Tu información de usuario</Typography>
-            <CaracteristicaProfile title="Nombre">{nombre}</CaracteristicaProfile>
-            <CaracteristicaProfile title="Apellidos">{apellido}</CaracteristicaProfile>
+            <CaracteristicaProfile title="Nombre">{first_name}</CaracteristicaProfile>
+            <CaracteristicaProfile title="Apellidos">{lastname}</CaracteristicaProfile>
             <CaracteristicaProfile title="Email">{email}</CaracteristicaProfile>
-            <CaracteristicaProfile title="Teléfono">{telefono}</CaracteristicaProfile>
+            <CaracteristicaProfile title="Teléfono">{phone}</CaracteristicaProfile>
         </Box>
     )
 }

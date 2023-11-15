@@ -3,12 +3,13 @@ import { IStatus } from "./status-type";
 
 export interface IUser {
     id: number;
-    nombre: string;
-    segundo_nombre?: string;
-    apellido: string;
-    segundo_apellido?: string;
-    cedula: string;
-    telefono: string;
+    first_name: string;
+    middle_name?: string;
+    lastname: string;
+    second_lastname?: string;
+    document: string;
+    phone: string;
+    photo?: string;
     email: string;
     role_id: number;
     role?: IRole;

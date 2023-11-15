@@ -10,10 +10,13 @@ type Props = {
 }
 const initialState: IUser = {
     id: 0,
-    nombre: '',
-    apellido: '',
-    cedula: '',
-    telefono: '',
+    first_name: '',
+    middle_name: '',
+    lastname: '',
+    second_lastname: '',
+    document: '',
+    phone: '',
+    photo: '',
     email: '',
     role_id: 0,
     status_id: 0,
@@ -41,7 +44,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
                 case 200:
                     const { user } = await response.json();
                     dispatch({ type: AUTH_ACTIONS.validate, payload: { ...user, token, logged: true } })
-                    const path = user.role.description === 'Cliente' ? '/dashboard' : '/admin/dashboard';
+                    const path = user.role.description === 'Master' ? '/admin/dashboard' : '/dashboard';
                     return { status: true, message: 'Sesion validada', user, path }
                 default:
                     deleteCookie('token');
