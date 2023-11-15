@@ -128,12 +128,12 @@ export const OwnerDialog = ({ asignOwner }: PropsOwnerDialog) => {
                         <Box key={user.id} sx={{ width: '100%', mb: 2, boxShadow: '0 2px 8px rgba(100,100,100,0.1)', p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Box sx={{ display: 'flex', flexFlow: 'column wrap' }}>
                                 <TypographyCustom variant='overline' fontWeight='bold' color='text.disabled'>{user.role?.description}</TypographyCustom>
-                                <TypographyCustom variant='h6' >{user.nombre + ' ' + user.apellido}</TypographyCustom>
-                                <TypographyCustom variant='subtitle2' color='text.secondary'>Cedula {user.cedula}</TypographyCustom>
-                                <TypographyCustom variant='subtitle2' color='text.secondary'>Telefono {user.telefono}</TypographyCustom>
+                                <TypographyCustom variant='h6' >{user.first_name + ' ' + user.lastname}</TypographyCustom>
+                                <TypographyCustom variant='subtitle2' color='text.secondary'>Cedula {user.document}</TypographyCustom>
+                                <TypographyCustom variant='subtitle2' color='text.secondary'>Telefono {user.phone}</TypographyCustom>
                             </Box>
                             <IconButton
-                                onClick={() => check(user.id, user.nombre)}
+                                onClick={() => check(user.id, user.first_name)}
                                 color={selectedUser && selectedUser.id === user.id ? 'success' : 'default'}
                                 sx={{ color: selectedUser && selectedUser.id === user.id ? authState.color : grey[600] }}
                             >

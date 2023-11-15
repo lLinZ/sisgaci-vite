@@ -25,7 +25,7 @@ export const Dashboard = () => {
 
             <Box sx={styles.nameContainer}>
                 <TypographyCustom variant='h4' fontWeight={'bold'}>
-                    Hola, {context.authState.nombre}!
+                    Hola, {context.authState.first_name}!
                 </TypographyCustom>
                 <TypographyCustom variant='subtitle2' fontmode={2}>
                     Consulta la informacion de tu condominio con solo un click!

@@ -210,7 +210,7 @@ export const UnitItem = ({ unit, controlProps }: Props) => {
                 <Grid item xs={12} sm={6} md={4}>
                     <Box sx={{ display: 'flex', alignItems: 'start', flexFlow: 'column', ml: { xs: 0, sm: 4 } }}>
                         <TypographyCustom variant={'subtitle1'} fontWeight={'bold'} color="text.primary">Propietario</TypographyCustom>
-                        <TypographyCustom variant={'subtitle2'} fontWeight={'bold'} color={unitState.user ? 'text.secondary' : 'text.disabled'}>{unitState.user ? unitState.user.nombre : 'No hay propietario asignado'}</TypographyCustom>
+                        <TypographyCustom variant={'subtitle2'} fontWeight={'bold'} color={unitState.user ? 'text.secondary' : 'text.disabled'}>{unitState.user ? unitState.user.first_name : 'No hay propietario asignado'}</TypographyCustom>
                         <OwnerDialog asignOwner={asignOwner} unit={unitState} />
                     </Box>
                 </Grid>

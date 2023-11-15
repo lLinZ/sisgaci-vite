@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 import { FormikHelpers, Formik, Form } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import { TypographyCustom, ButtonCustom } from "../components/custom";
 import { TextFieldCustom } from "../components/custom/TextFieldCustom";
 import { AuthContext } from "../context/auth";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 
 const initialValues = {
     email: '',
@@ -15,6 +17,10 @@ type FormValues = { email: string, password: string };
 export const AuthPage = () => {
     const { userLogin, validateToken } = useContext(AuthContext)
     const [loading, setLoading] = useState<boolean>(false);
+    const [showPass, setShowPass] = useState<boolean>(false);
+    const toggleVisibility = () => {
+            setShowPass(!showPass)
+        }
     const navigate = useNavigate();
     const sessionValidationLoginPage = async () => {
         const validation = await validateToken();
@@ -72,7 +78,11 @@ export const AuthPage = () => {
                                 <TextFieldCustom fullWidth name='email' onChange={handleChange} label="Correo" />
                             </Grid>
                             <Grid item xs={12} md={12} sx={styles.item}>
-                                <TextFieldCustom fullWidth name='password' type='password' label="Contraseña" onChange={handleChange} />
+                                <TextFieldCustom fullWidth name='password' label="Contraseña" onChange={handleChange} type={showPass ? 'text' : 'password'} InputProps={{
+                                    endAdornment: <IconButton size='small' onClick={toggleVisibility}>
+                                        {!showPass ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                }} />
                             </Grid>
                             <Grid item xs={12} md={12} sx={styles.item}>
                                 <ButtonCustom fullWidth disableElevation disabled={loading} type='submit'>Iniciar sesion</ButtonCustom>

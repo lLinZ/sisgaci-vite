@@ -1,12 +1,12 @@
 import { ReactElement } from 'react'
-import { ClientOption } from './OptionsList'
 import Chip, { ChipPropsColorOverrides, chipClasses } from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { Option } from '../../../interfaces';
 
 type Props = {
-    option: ClientOption
+    option: Option
 }
 export const OptionWidget = (props: Props) => {
     const theme = useTheme();
