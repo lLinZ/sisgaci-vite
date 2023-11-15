@@ -8,6 +8,7 @@ import { TextFieldCustom } from "../components/custom/TextFieldCustom";
 import { AuthContext } from "../context/auth";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import { baseUrl } from "../common";
 
 const initialValues = {
     email: '',
@@ -28,8 +29,13 @@ export const AuthPage = () => {
             navigate(validation.path ? validation.path : '/');
         }
     }
+    const getCSRFToken = async ()=>{
+        const response = await fetch(`http://localhost:8000/sanctum/csrf-cookie`);
+        console.log(response)
+    }
     useEffect(() => {
-        sessionValidationLoginPage()
+        getCSRFToken();
+        sessionValidationLoginPage();
     }, [])
     const onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => any = async (values) => {
         if (!values.email || !values.password) {

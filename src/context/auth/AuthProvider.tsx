@@ -35,7 +35,8 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'XSRF-TOKEN':getCookieValue('XSRF-TOKEN'),
             }
         }
         try {
@@ -99,6 +100,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
+                'XSRF-TOKEN':getCookieValue('XSRF-TOKEN'),
             },
             body
         }
