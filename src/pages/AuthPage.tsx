@@ -30,7 +30,7 @@ export const AuthPage = () => {
         }
     }
     const getCSRFToken = async ()=>{
-        const response = await fetch(`http://localhost:8000/sanctum/csrf-cookie`);
+        const response = await fetch(`http://localhost:8000/api/csrf-cookie`);
         console.log(response)
     }
     useEffect(() => {
