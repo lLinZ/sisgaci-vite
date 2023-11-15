@@ -40,10 +40,10 @@ interface IValues {
     password: string;
 }
 
-export const RegisterMaster = () => {
+export const RegisterUser = () => {
     const { authState } = useContext(AuthContext)
     const options: Option[] = [
-        { text: 'Agregar Usuario', path: '/admin/users/add', color: green[500], icon: <PersonAddRounded /> },
+        { text: 'Agregar Master', path: '/admin/register/master', color: green[500], icon: <PersonAddRounded /> },
         { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
     ]
     const onSubmit = async (
