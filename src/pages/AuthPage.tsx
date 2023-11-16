@@ -29,12 +29,7 @@ export const AuthPage = () => {
             navigate(validation.path ? validation.path : '/');
         }
     }
-    const getCSRFToken = async ()=>{
-        const response = await fetch(`http://localhost:8000/api/csrf-cookie`);
-        console.log(response)
-    }
     useEffect(() => {
-        getCSRFToken();
         sessionValidationLoginPage();
     }, [])
     const onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => any = async (values) => {

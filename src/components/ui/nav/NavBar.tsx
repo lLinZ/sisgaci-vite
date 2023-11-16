@@ -10,7 +10,7 @@ export const NavBar = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', flexFlow: 'row nowrap' }}>
                         <SideBar />
                         <img src='/logo.png' width={65} height={65} />
-                        <Typography>Condominios</Typography>
+                        <Typography>SISGACI</Typography>
                     </Box>
                     <UserMenu />
                 </Grid>

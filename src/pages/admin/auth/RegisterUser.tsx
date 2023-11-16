@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 
@@ -6,16 +6,17 @@ import { blue, green } from '@mui/material/colors';
 
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista } from '../../../components/ui/content';
-import { ButtonCustom, TextFieldCustom } from '../../../components/custom';
+import { ButtonCustom, SelectCustom, TextFieldCustom } from '../../../components/custom';
 import { Formik, Form, FormikState } from 'formik';
 import { AuthContext } from '../../../context/auth';
 import { baseUrl } from '../../../common';
 import { OptionsList } from '../../../components/ui/options';
-import { Option } from '../../../interfaces';
+import { IDepartment, Option } from '../../../interfaces';
 import Swal from 'sweetalert2';
 import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
+import { MenuItem, SelectChangeEvent } from '@mui/material';
 
 const initialValues: IValues = {
     first_name: '',
@@ -42,6 +43,66 @@ interface IValues {
 
 export const RegisterUser = () => {
     const { authState } = useContext(AuthContext)
+    const [departments, setDepartments] = useState<IDepartment[] | null>(null);
+    const [departmentSelected, setDepartmentSelected] = useState<IDepartment | null>(null);
+
+    const selectDepartment = (id: number) => {
+        const selected = departments?.filter((dep: IDepartment) => id === dep.id)[0];
+        setDepartmentSelected(selected ? selected : null);
+    }
+
+    const getDepartments = async () => {
+        const url = `${baseUrl}/department`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${authState.token}`
+            }
+        }
+        try {
+            const response = await fetch(url, options);
+            switch (response.status) {
+                case 200:
+                    const { data } = await response.json();
+                    console.log(data);
+                    setDepartments(data);
+                    break;
+                case 400:
+                    const { errors } = await response.json();
+                    Swal.fire({
+                        title: 'Error',
+                        html: errorArrayLaravelTransformToString(errors),
+                        icon: 'error',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                    });
+                    break;
+                default:
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ocurrio un error inesperado',
+                        icon: 'error',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                    });
+                    break;
+            }
+
+        } catch (error) {
+            console.log({ error })
+            Swal.fire({
+                title: 'Error',
+                text: 'Ocurrio un error al conectarse con el servidor',
+                icon: 'error',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        }
+    }
     const options: Option[] = [
         { text: 'Agregar Master', path: '/admin/register/master', color: green[500], icon: <PersonAddRounded /> },
         { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
@@ -49,7 +110,9 @@ export const RegisterUser = () => {
     const onSubmit = async (
         values: IValues,
         resetForm: (nextState?: Partial<FormikState<IValues>> | undefined) => void) => {
-        const url = `${baseUrl}/register/master/24548539`;
+
+        if (departmentSelected === null) return;
+        const url = `${baseUrl}/user/add`;
         const body = new URLSearchParams();
         body.append('first_name', values.first_name);
         body.append('middle_name', values.middle_name);
@@ -116,10 +179,13 @@ export const RegisterUser = () => {
             });
         }
     }
+    useEffect(() => {
+        getDepartments();
+    }, [])
     return (
         <Layout>
-            <DescripcionDeVista title={'Registrar Master'} description={'Registra un nuevo usuario de rol Master (acceso exclusivo para SISTEMAS)'} />
-            <OptionsList options={options} breakpoints={{ xs: 12, sm:6, md:6, lg:6 }} />
+            <DescripcionDeVista title={'Registrar usuario'} description={'Registra un nuevo usuario basico y selecciona el departamento correspondiente'} />
+            <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
@@ -153,6 +219,16 @@ export const RegisterUser = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextFieldCustom value={values.address} label='Direccion' name={'address'} onChange={handleChange} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <SelectCustom helpertext='' label='Departamento' value={departmentSelected ? departmentSelected.id : '0'} onChange={(e: SelectChangeEvent<any>) => {
+                                    selectDepartment(e.target.value);
+                                }}>
+                                    <MenuItem value='0' disabled>Seleccione un departamento</MenuItem>
+                                    {departments && departments.map((dep: IDepartment) => (
+                                        <MenuItem value={dep.id}>{dep.description}</MenuItem>
+                                    ))}
+                                </SelectCustom>
                             </Grid>
                             <Grid item xs={12}>
                                 <ButtonCustom type='submit'>Registrar</ButtonCustom>

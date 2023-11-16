@@ -1,7 +1,6 @@
-export interface IProvider {
+export interface IDepartment {
     id: number;
-    name: string;
-    rif: string;
+    description: string;
     created_at: string;
     updated_at: string;
 }
