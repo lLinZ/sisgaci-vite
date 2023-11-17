@@ -10,6 +10,7 @@ import { RegisterMaster, Users } from '../../pages/admin/auth'
 import { Dashboard } from '../../pages/admin';
 import { RegisterUser } from '../../pages/admin/auth/RegisterUser';
 import { Departments, RegisterDepartment } from '../../pages/admin/departments';
+import { Calls, RegisterCall } from '../../pages/admin/calls';
 
 export const AdminRoutes = () => {
     const { authState } = useContext(AuthContext)
@@ -28,6 +29,8 @@ export const AdminRoutes = () => {
                 <Route path='/admin/register/master' element={<RegisterMaster />} />
                 <Route path='/admin/departments' element={<Departments />} />
                 <Route path='/admin/department/add' element={<RegisterDepartment />} />
+                <Route path='/admin/calls' element={<Calls />} />
+                <Route path='/admin/calls/add' element={<RegisterCall />} />
                 <Route path='/perfil' element={<Perfil />} />
             </Routes>)
             : (<Routes>

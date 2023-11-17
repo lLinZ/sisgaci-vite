@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import { green } from "@mui/material/colors"
+import { green, blue } from "@mui/material/colors"
 import { useContext } from "react"
 import { OptionsList } from "../../components/ui/options"
 import { TypographyCustom } from "../../components/custom"
@@ -7,10 +7,12 @@ import { Layout } from "../../components/ui"
 import { AuthContext } from "../../context/auth"
 import { Option } from '../../interfaces';
 import PeopleIcon from '@mui/icons-material/PeopleRounded';
+import CallRounded from "@mui/icons-material/CallRounded"
 export const Dashboard = () => {
     const context = useContext(AuthContext)
     const clientOptions: Option[] = [
         { text: 'Usuarios', icon: <PeopleIcon />, color: green[800], path: '/admin/users' },
+        { text: 'Llamadas', icon: <CallRounded />, color: blue[800], path: '/admin/calls' },
     ]
     return (
         <Layout>
@@ -26,7 +28,7 @@ export const Dashboard = () => {
                     Explora las diferentes opciones para interactuar con el sistema.
                 </TypographyCustom>
             </Box>
-            <OptionsList options={clientOptions} breakpoints={{ xs: 6, sm: 6, md: 3, lg: 3 }} />
+            <OptionsList options={clientOptions} breakpoints={{ xs: 6, sm: 6, md: 6, lg: 6 }} />
             <Box sx={styles.contentContainer}>
 
             </Box>
