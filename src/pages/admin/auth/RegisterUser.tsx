@@ -16,7 +16,9 @@ import Swal from 'sweetalert2';
 import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
-import { MenuItem, SelectChangeEvent } from '@mui/material';
+import { Box, IconButton, MenuItem, SelectChangeEvent, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { AddRounded } from '@mui/icons-material';
 
 const initialValues: IValues = {
     first_name: '',
@@ -111,7 +113,17 @@ export const RegisterUser = () => {
         values: IValues,
         resetForm: (nextState?: Partial<FormikState<IValues>> | undefined) => void) => {
 
-        if (departmentSelected === null) return;
+        if (departmentSelected === null) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Seleccione un departamento valido',
+                icon: 'error',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+            return;
+        };
         const url = `${baseUrl}/user/add`;
         const body = new URLSearchParams();
         body.append('first_name', values.first_name);
@@ -137,7 +149,7 @@ export const RegisterUser = () => {
                 case 200:
                     Swal.fire({
                         title: 'Exito',
-                        text: 'Se ha registrado el master',
+                        text: 'Se ha registrado el usuario',
                         icon: 'success',
                         timer: 2000,
                         timerProgressBar: true,
@@ -221,14 +233,24 @@ export const RegisterUser = () => {
                                 <TextFieldCustom value={values.address} label='Direccion' name={'address'} onChange={handleChange} />
                             </Grid>
                             <Grid item xs={12}>
-                                <SelectCustom helpertext='' label='Departamento' value={departmentSelected ? departmentSelected.id : '0'} onChange={(e: SelectChangeEvent<any>) => {
-                                    selectDepartment(e.target.value);
-                                }}>
-                                    <MenuItem value='0' disabled>Seleccione un departamento</MenuItem>
-                                    {departments && departments.map((dep: IDepartment) => (
-                                        <MenuItem value={dep.id}>{dep.description}</MenuItem>
-                                    ))}
-                                </SelectCustom>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexFlow: 'row nowrap', alignItems: 'center' }}>
+
+                                    <SelectCustom helpertext='' label='Departamento' value={departmentSelected ? departmentSelected.id : '0'} onChange={(e: SelectChangeEvent<any>) => {
+                                        selectDepartment(e.target.value);
+                                    }}>
+                                        <MenuItem value='0' disabled>Seleccione un departamento</MenuItem>
+                                        {departments && departments.map((dep: IDepartment) => (
+                                            <MenuItem key={dep.id} value={dep.id}>{dep.description}</MenuItem>
+                                        ))}
+                                    </SelectCustom>
+                                    <Link to={'/admin/department/add'}>
+                                        <Tooltip title={'Ir a agregar departamento'}>
+                                            <IconButton>
+                                                <AddRounded />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Link>
+                                </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <ButtonCustom type='submit'>Registrar</ButtonCustom>

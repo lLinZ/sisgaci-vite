@@ -55,7 +55,7 @@ export const Users = () => {
         <Layout>
             <DescripcionDeVista title={title} description={'Consulta usuarios o navega a "Agregar Usuario" para ingresar uno nuevo en el sistema!'} />
             <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
-            {users && (<BusquedaYResultado records={users} setRecords={setUsers} title={'Proveedores'} />)}
+            {users && (<BusquedaYResultado records={users} setRecords={setUsers} title={title} />)}
             {users && users.map((user: IUser) => (
                 <Box key={user.id} sx={styles.contentBox}>
                     <TypographyCustom variant='h6'>{user.first_name}</TypographyCustom>
