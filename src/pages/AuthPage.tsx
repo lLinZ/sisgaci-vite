@@ -1,14 +1,15 @@
-import { Box, Grid, IconButton } from "@mui/material";
-import { FormikHelpers, Formik, Form } from "formik";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { TypographyCustom, ButtonCustom } from "../components/custom";
-import { TextFieldCustom } from "../components/custom/TextFieldCustom";
-import { AuthContext } from "../context/auth";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
-import { baseUrl } from "../common";
+import { Box, CircularProgress, Grid, IconButton } from '@mui/material';
+import { FormikHelpers, Formik, Form } from 'formik';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { TypographyCustom, ButtonCustom } from '../components/custom';
+import { TextFieldCustom } from '../components/custom/TextFieldCustom';
+import { AuthContext } from '../context/auth';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import { baseUrl } from '../common';
+import { PageLoading } from '../components/ui/content/PageLoading';
 
 const initialValues = {
     email: '',
@@ -20,13 +21,19 @@ export const AuthPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [showPass, setShowPass] = useState<boolean>(false);
     const toggleVisibility = () => {
-            setShowPass(!showPass)
-        }
+        setShowPass(!showPass)
+    }
     const navigate = useNavigate();
     const sessionValidationLoginPage = async () => {
+        setLoading(true);
         const validation = await validateToken();
         if (validation.status) {
+            setLoading(false);
             navigate(validation.path ? validation.path : '/');
+        } else {
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000)
         }
     }
     useEffect(() => {
@@ -65,9 +72,10 @@ export const AuthPage = () => {
         }
     }
 
-    return (
+    return (<>
+        {loading && <PageLoading customMessage='Validando sesion...' />}
         <Box sx={styles.container}>
-            <img src="/logo.png" width="200" height="200" />
+            <img src='/logo.png' width='200' height='200' />
             <Formik initialValues={initialValues} onSubmit={onSubmit} >
                 {({ handleChange, handleSubmit }) => (
                     <Form onSubmit={handleSubmit} style={styles.form}>
@@ -76,10 +84,10 @@ export const AuthPage = () => {
                                 <TypographyCustom fontSize={24} fontWeight={'bold'} textAlign={'center'}>SISGACI</TypographyCustom>
                             </Grid>
                             <Grid item xs={12} md={12} sx={styles.item}>
-                                <TextFieldCustom fullWidth name='email' onChange={handleChange} label="Correo" />
+                                <TextFieldCustom fullWidth name='email' onChange={handleChange} label='Correo' />
                             </Grid>
                             <Grid item xs={12} md={12} sx={styles.item}>
-                                <TextFieldCustom fullWidth name='password' label="Contraseña" onChange={handleChange} type={showPass ? 'text' : 'password'} InputProps={{
+                                <TextFieldCustom fullWidth name='password' label='Contraseña' onChange={handleChange} type={showPass ? 'text' : 'password'} InputProps={{
                                     endAdornment: <IconButton size='small' onClick={toggleVisibility}>
                                         {!showPass ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>
@@ -93,6 +101,7 @@ export const AuthPage = () => {
                 )}
             </Formik>
         </Box>
+    </>
     )
 }
 const styles = {

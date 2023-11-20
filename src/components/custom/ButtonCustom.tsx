@@ -15,6 +15,7 @@ export function ButtonCustom<C extends React.ElementType>(
         borderRadius: '10em',
         textTransform: 'none',
         p: 1.8,
+        fontSize: 16,
         background: rest.variant && rest.variant === 'outlined' ? 'transparent' : customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3),
         borderColor: customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3),
         color: rest.variant && rest.variant !== 'outlined' ? '#FFF' : customcolor ? darken(customcolor, 0.3) : darken(authState.color, 0.3),

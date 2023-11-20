@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import { Box, CircularProgress } from "@mui/material";
-import { AuthContext } from "../../../context/auth";
+import { useContext } from 'react'
+import { Box, CircularProgress } from '@mui/material';
+import { AuthContext } from '../../../context/auth';
 
 export const Loading = () => {
 

@@ -84,7 +84,7 @@ export const Perfil = (props: Props) => {
                                         }} />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <ButtonCustom variant='contained'>Guardar cambios</ButtonCustom>
+                                        <ButtonCustom>Guardar cambios</ButtonCustom>
                                     </Grid>
                                 </Grid>
                             </Form>
