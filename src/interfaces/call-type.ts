@@ -7,6 +7,7 @@ export interface ICall {
     call_date: string;
     call_purpose: string;
     feedback: string;
+    zone: string;
     sales_agent_id?: number;
     sales_agent?: ISalesAgent;
     client_id?: number;

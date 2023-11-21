@@ -40,14 +40,12 @@ const initialValues: IValues = {
 type IValues = Partial<ICall> & {
     marital_status: string;
     nationality: string;
-    zone: string;
     phone: string;
     first_name: string;
     lastname: string;
     middle_name?: string;
     second_lastname?: string;
     document?: string;
-    address?: string;
 }
 
 export const RegisterCall = () => {
@@ -109,6 +107,7 @@ export const RegisterCall = () => {
         body.append('zone', String(values.zone));
         body.append('call_purpose', String(values.call_purpose));
         body.append('feedback', String(values.feedback));
+        body.append('birthday', String(birthday));
         const options = {
             method: 'POST',
             headers: {
@@ -174,7 +173,12 @@ export const RegisterCall = () => {
             <DescripcionDeVista title={'Registrar llamada'} description={'Registra una nueva llamada en el sistema'} />
             <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
             <Formik
-                onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)} initialValues={initialValues}            >
+                onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
+                initialValues={initialValues}
+                validateOnBlur={false}
+                validateOnChange={false}
+                validateOnMount={false}
+            >
                 {({ values, errors, touched, handleChange, handleSubmit }) => (
                     <Form onSubmit={handleSubmit}>
                         <Grid container spacing={2} sx={{ mb: 5 }}>
@@ -232,21 +236,40 @@ export const RegisterCall = () => {
                                 <TextFieldCustom label={'Segundo Apellido'} value={values.second_lastname} name='second_lastname' onChange={handleChange} />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Nacionalidad'} value={values.nationality} name='nationality' onChange={handleChange} />
+                                <SelectCustom value={values.nationality} name='nationality' label='Nacionalidad' helpertext={''} onChange={handleChange}>
+                                    <MenuItem value='0' disabled>Seleccione una nacionalidad</MenuItem>
+                                    <MenuItem value='Venezolano'>Venezolano(a)</MenuItem>
+                                    <MenuItem value='Extranjero'>Extranjero(a)</MenuItem>
+                                    <MenuItem value='Juridico'>Juridico</MenuItem>
+                                </SelectCustom>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Cedula'} value={values.document} name='document' onChange={handleChange} />
+                                <NumericFormat
+                                    label='Cedula'
+                                    name='document'
+                                    customInput={TextFieldCustom}
+                                    onChange={handleChange}
+                                    allowNegative={false}
+                                    allowLeadingZeros={false}
+                                    valueIsNumericString={false}
+                                    thousandSeparator={false}
+                                    decimalScale={0}
+                                    value={values.document}
+                                    fixedDecimalScale={false}
+                                    error={errors.document && touched.document ? true : false}
+                                    helperText={errors.document && touched.document ? errors.document : ''}
+                                />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <CalendarCustom setValue={setBirthday} rest={{ disableFuture: true, label: 'Fecha de nacimiento' }} />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <SelectCustom value={values.marital_status} name='marital_status' label='Motivo de llamada' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione una estado civil</MenuItem>
-                                    <MenuItem value='Soltero(a)'>Soltero(a)</MenuItem>
-                                    <MenuItem value='Divorciado(a)'>Divorciado(a)</MenuItem>
-                                    <MenuItem value='Concubino(a)'>Concubino(a)</MenuItem>
-                                    <MenuItem value='Viudo(a)'>Viudo(a)</MenuItem>
+                                    <MenuItem value='0' disabled>Seleccione un estado civil</MenuItem>
+                                    <MenuItem value='Soltero'>Soltero(a)</MenuItem>
+                                    <MenuItem value='Divorciado'>Divorciado(a)</MenuItem>
+                                    <MenuItem value='Concubino'>Concubino(a)</MenuItem>
+                                    <MenuItem value='Viudo'>Viudo(a)</MenuItem>
                                     <MenuItem value='Juridica'>Juridica</MenuItem>
                                 </SelectCustom>
                             </Grid>

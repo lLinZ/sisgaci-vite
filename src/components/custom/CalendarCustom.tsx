@@ -7,6 +7,7 @@ import { darken, lighten } from '@mui/material';
 import { AuthContext } from '../../context/auth';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { DateField, StaticDatePicker } from '@mui/x-date-pickers';
+import moment from 'moment';
 
 interface Props {
     setValue: Dispatch<SetStateAction<any>>;
@@ -16,6 +17,7 @@ export const CalendarCustom = (props: Props) => {
     const [value, setValue] = useState(new Date())
     const handleChange = (newValue: any) => {
         setValue(newValue)
+        console.log({ fecha: moment(newValue).format('DD-MM-yyyy') })
         props.setValue(newValue);
     }
     const { authState } = useContext(AuthContext)
