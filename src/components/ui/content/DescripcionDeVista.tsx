@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { FC, useContext } from 'react';
 import Box from '@mui/material/Box';
 import { darken, useTheme } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -13,44 +13,57 @@ type Props = {
     title: string;
     description: string;
     backPath?: string | To;
+    buttons?: boolean;
 }
 
-export const DescripcionDeVista = (props: Props) => {
+export const DescripcionDeVista: FC<Props> = ({ description, title, backPath = undefined, buttons = true }) => {
 
     const router = useNavigate();
     const theme = useTheme();
     const { authState } = useContext(AuthContext)
+    const styles: any = {
+        nameContainer: {
+            borderRadius: 3,
+            marginBottom: 2,
+            padding: 2
+        },
+        buttons: {
+            background: 'rgba(100,100,100,0.1)',
+            textTransform: 'none',
+            borderRadius: '10em',
+            color: 'text.secondary',
+            mb: 2,
+            '&:hover': {
+                background: authState.color,
+                color: theme.palette.getContrastText(authState.color)
+            }
+        },
+        container: {
+            display: 'flex',
+            alignItems: 'center',
+            flexFlow: 'row nowrap'
+        }
+    }
+    const redirect = () => {
+        router(authState.role?.description === 'Master' ? '/admin/dashboard' : '/dashboard')
+    }
     return (
-        <Box sx={styles.nameContainer}>
-            <Button size='small' onClick={() => router(authState.role?.description === 'Master' ? '/admin/dashboard' : '/dashboard')} variant="text" sx={{
-                background: 'rgba(100,100,100,0.1)', textTransform: 'none', borderRadius: '10em', color: 'text.secondary', mb: 2, '&:hover': {
-                    background: authState.color,
-                    color: theme.palette.getContrastText(authState.color)
-                }
-            }} startIcon={
-                <HomeRounded />
-            }>
+        <Box sx={styles.nameContainer} >
+            {buttons && (<Button size='small' onClick={redirect} variant="text" sx={styles.buttons} startIcon={< HomeRounded />}>
                 Volver al inicio
-            </Button>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', flexFlow: 'row nowrap' }}>
-                <IconButton onClick={() => router(props.backPath ? props.backPath : -1 as To)}>
+            </Button >)}
+            <Box sx={styles.container}>
+                {buttons && (<IconButton onClick={() => router(backPath ? backPath : -1 as To)}>
                     <ArrowBackRounded />
-                </IconButton>
+                </IconButton>)
+                }
                 <TypographyCustom variant='h4' fontWeight={'bold'}>
-                    {props.title}
+                    {title}
                 </TypographyCustom>
             </Box>
             <TypographyCustom variant='subtitle2' fontmode={2} color='text.secondary'>
-                {props.description}
+                {description}
             </TypographyCustom>
         </Box>
     )
-}
-const styles = {
-    nameContainer: {
-        borderRadius: 3,
-        marginBottom: 2,
-        padding: 2
-    },
 }

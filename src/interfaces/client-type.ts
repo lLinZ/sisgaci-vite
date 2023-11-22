@@ -5,10 +5,11 @@ export interface IClient {
     lastname?: string;
     second_lastname?: string;
     document?: string;
-    phone1?: string;
-    phone2?: string;
+    phone?: string;
     email?: string;
-    short_address?: string;
+    nationality: string;
+    gender: string;
+    marital_status: string;
     origin: string;
     created_at: string;
     updated_at: string;

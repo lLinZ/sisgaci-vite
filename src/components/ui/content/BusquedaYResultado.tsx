@@ -12,6 +12,7 @@ interface Props {
     records: any;
     setRecords: Dispatch<any>;
     title: string;
+    subdata?: string;
 }
 export const BusquedaYResultado = (props: Props) => {
     const [search, setSearch] = useState<string>('');
@@ -19,17 +20,51 @@ export const BusquedaYResultado = (props: Props) => {
 
     function buscarObjeto(objetos: any[], busqueda: string) {
         return objetos.filter((objeto: any) => {
+            let outofloop = false;
             for (let key in objeto) {
-                if (
-                    typeof objeto[key] === 'string' &&
-                    (objeto[key].includes(busqueda) || objeto[key].includes(busqueda.toLowerCase()) || objeto[key].includes(ucfirst(busqueda.toLowerCase())) || objeto[key].includes(busqueda.toUpperCase()))
-                ) {
-                    return true;
+                if (typeof objeto[key] === 'string') {
+                    if (
+                        typeof objeto[key] === 'string' &&
+                        (objeto[key].includes(String(busqueda)) || objeto[key].includes(String(busqueda).toLowerCase()) || objeto[key].includes(ucfirst(String(busqueda).toLowerCase())) || objeto[key].includes(String(busqueda).toUpperCase()))
+                    ) {
+                        return true;
+                    }
+                } else if (typeof objeto[key] === 'object') {
+
+                    const objetoRecorrido = objeto[key];
+                    if (objetoRecorrido) {
+                        const keys = Object.keys(objetoRecorrido);
+                        keys.forEach(element => {
+                            if (!!objetoRecorrido[element] && (String(objetoRecorrido[element]).toLowerCase().includes(String(busqueda).toLowerCase()))) {
+                                outofloop = true;
+                                return true;
+                            }
+                        });
+                    }
                 }
             }
+            if (outofloop) return true;
             return false;
         });
     }
+    // const handleSubmit2 = (e: FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     if (!search) return;
+    //     const result: any[] = buscarObjeto(originalValues.[props.subdata ? props.subdata : '0'], search);
+    //     if (result.length > 0) {
+    //         setSearch('');
+    //         props.setRecords(result);
+    //     } else {
+    //         Swal.fire({
+    //             title: 'Oops...',
+    //             text: 'No se encontraron resultados',
+    //             icon: 'warning',
+    //             timer: 2000,
+    //             timerProgressBar: true,
+    //             showConfirmButton: false,
+    //         });
+    //     }
+    // };
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!search) return;

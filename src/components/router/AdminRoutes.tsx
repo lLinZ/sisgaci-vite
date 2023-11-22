@@ -11,6 +11,7 @@ import { Dashboard } from '../../pages/admin';
 import { RegisterUser } from '../../pages/admin/auth/RegisterUser';
 import { Departments, RegisterDepartment } from '../../pages/admin/departments';
 import { Calls, RegisterCall } from '../../pages/admin/calls';
+import { Clients, RegisterClient } from '../../pages/admin/clients';
 
 export const AdminRoutes = () => {
     const { authState } = useContext(AuthContext)
@@ -31,6 +32,8 @@ export const AdminRoutes = () => {
                 <Route path='/admin/department/add' element={<RegisterDepartment />} />
                 <Route path='/admin/calls' element={<Calls />} />
                 <Route path='/admin/calls/add' element={<RegisterCall />} />
+                <Route path='/admin/clients' element={<Clients />} />
+                <Route path='/admin/clients/add' element={<RegisterClient />} />
                 <Route path='/perfil' element={<Perfil />} />
             </Routes>)
             : (<Routes>
@@ -40,6 +43,10 @@ export const AdminRoutes = () => {
                 <Route path='/admin/register/master' element={<Navigate to={'/'} />} />
                 <Route path='/admin/departments' element={<Navigate to={'/'} />} />
                 <Route path='/admin/department/add' element={<Navigate to={'/'} />} />
+                <Route path='/admin/calls' element={<Navigate to={'/'} />} />
+                <Route path='/admin/calls/add' element={<Navigate to={'/'} />} />
+                <Route path='/admin/clients' element={<Navigate to={'/'} />} />
+                <Route path='/admin/clients/add' element={<Navigate to={'/'} />} />
             </Routes>)
     )
 }

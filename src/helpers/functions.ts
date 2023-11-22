@@ -7,6 +7,13 @@ export function errorArrayLaravelTransformToString(errors: any[]) {
     Object.values(errors).map((error: any) => errorString += `${error} <br/>`);
     return errorString;
 }
+export function errorArrayLaravelTransformToArray(errors: any[]) {
+    if (errors.length === 0) return false;
+    // let errorString = '';
+    const errorArray: any = [];
+    Object.values(errors).map((error: any) => errorArray.push(error[0]));
+    return errorArray;
+}
 export const getFormatDistanceToNow = (date: Date) => {
     const fromNow = formatDistanceToNow(date, { locale: es });
     return `Creada hace ${fromNow}`;

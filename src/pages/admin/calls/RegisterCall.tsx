@@ -19,8 +19,9 @@ import { Autocomplete, Box, Dialog, IconButton, MenuItem, Toolbar } from '@mui/m
 import { NumericFormat } from 'react-number-format';
 import { CloseRounded } from '@mui/icons-material';
 import { CalendarCustom } from '../../../components/custom/CalendarCustom';
+import { CallForm } from '../../../components/admin/calls';
 
-const initialValues: IValues = {
+const initialValues: IValuesCall = {
     marital_status: '0',
     nationality: '0',
     zone: '',
@@ -37,7 +38,7 @@ const initialValues: IValues = {
     created_at: '',
     updated_at: ''
 }
-type IValues = Partial<ICall> & {
+export type IValuesCall = Partial<ICall> & {
     marital_status: string;
     nationality: string;
     phone: string;
@@ -56,8 +57,8 @@ export const RegisterCall = () => {
         { text: 'Listar llamadas', path: '/admin/calls', color: green[500], icon: <ListRounded /> },
     ]
     const onSubmit = async (
-        values: IValues,
-        resetForm: (nextState?: Partial<FormikState<IValues>> | undefined) => void) => {
+        values: IValuesCall,
+        resetForm: (nextState?: Partial<FormikState<IValuesCall>> | undefined) => void) => {
         let errors = [];
         if (!countryCode) {
             errors.push('Debe seleccionar un codigo de pais');
@@ -164,10 +165,6 @@ export const RegisterCall = () => {
             });
         }
     }
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    };
     return (
         <Layout>
             <DescripcionDeVista title={'Registrar llamada'} description={'Registra una nueva llamada en el sistema'} />
@@ -180,137 +177,7 @@ export const RegisterCall = () => {
                 validateOnMount={false}
             >
                 {({ values, errors, touched, handleChange, handleSubmit }) => (
-                    <Form onSubmit={handleSubmit}>
-                        <Grid container spacing={2} sx={{ mb: 5 }}>
-                            <Grid item xs={12}>
-                                <Box sx={{ display: 'flex' }}>
-                                    <Autocomplete
-                                        disablePortal
-                                        options={countriesArray}
-                                        onChange={(event: any, newValue: any) => {
-                                            setCountryCode(newValue ? newValue.code : null);
-                                        }}
-                                        renderOption={(props, option) => (
-                                            <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                                                <img
-                                                    loading='lazy'
-                                                    width='20'
-                                                    srcSet={`https://flagcdn.com/w40/${option.alpha2.toLowerCase()}.png 2x`}
-                                                    src={`https://flagcdn.com/w20/${option.alpha2.toLowerCase()}.png`}
-                                                    alt='Bandera de pais'
-                                                />
-                                                {option.label}
-                                            </Box>
-                                        )}
-                                        sx={{ width: 250, mr: 0.5 }}
-                                        renderInput={(params) => <TextFieldCustom {...params} label='Pais' />}
-                                    />
-
-                                    <NumericFormat
-                                        label='Telefono'
-                                        name='phone'
-                                        customInput={TextFieldCustom}
-                                        onChange={handleChange}
-                                        allowNegative={false}
-                                        allowLeadingZeros={false}
-                                        valueIsNumericString={false}
-                                        thousandSeparator={false}
-                                        decimalScale={0}
-                                        value={values.phone}
-                                        fixedDecimalScale={false}
-                                        error={errors.phone && touched.phone ? true : false}
-                                        helperText={errors.phone && touched.phone ? errors.phone : ''}
-                                    />
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Primer Nombre'} value={values.first_name} name='first_name' onChange={handleChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Segundo Nombre'} value={values.middle_name} name='middle_name' onChange={handleChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Primer Apellido'} value={values.lastname} name='lastname' onChange={handleChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextFieldCustom label={'Segundo Apellido'} value={values.second_lastname} name='second_lastname' onChange={handleChange} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <SelectCustom value={values.nationality} name='nationality' label='Nacionalidad' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione una nacionalidad</MenuItem>
-                                    <MenuItem value='Venezolano'>Venezolano(a)</MenuItem>
-                                    <MenuItem value='Extranjero'>Extranjero(a)</MenuItem>
-                                    <MenuItem value='Juridico'>Juridico</MenuItem>
-                                </SelectCustom>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <NumericFormat
-                                    label='Cedula'
-                                    name='document'
-                                    customInput={TextFieldCustom}
-                                    onChange={handleChange}
-                                    allowNegative={false}
-                                    allowLeadingZeros={false}
-                                    valueIsNumericString={false}
-                                    thousandSeparator={false}
-                                    decimalScale={0}
-                                    value={values.document}
-                                    fixedDecimalScale={false}
-                                    error={errors.document && touched.document ? true : false}
-                                    helperText={errors.document && touched.document ? errors.document : ''}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <CalendarCustom setValue={setBirthday} rest={{ disableFuture: true, label: 'Fecha de nacimiento' }} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <SelectCustom value={values.marital_status} name='marital_status' label='Motivo de llamada' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione un estado civil</MenuItem>
-                                    <MenuItem value='Soltero'>Soltero(a)</MenuItem>
-                                    <MenuItem value='Divorciado'>Divorciado(a)</MenuItem>
-                                    <MenuItem value='Concubino'>Concubino(a)</MenuItem>
-                                    <MenuItem value='Viudo'>Viudo(a)</MenuItem>
-                                    <MenuItem value='Juridica'>Juridica</MenuItem>
-                                </SelectCustom>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <SelectCustom value={values.origin} name='origin' label='Origen' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione un origen</MenuItem>
-                                    <MenuItem value='Instagram'>Instagram</MenuItem>
-                                    <MenuItem value='Correo'>Correo</MenuItem>
-                                    <MenuItem value='Facebook'>Facebook</MenuItem>
-                                    <MenuItem value='Twitter'>Twitter</MenuItem>
-                                    <MenuItem value='Telefono'>Telefono</MenuItem>
-                                </SelectCustom>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <SelectCustom value={values.zone} name='zone' label='Zona' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione una zona</MenuItem>
-                                    <MenuItem value='Norte'>Norte</MenuItem>
-                                    <MenuItem value='Sur'>Sur</MenuItem>
-                                    <MenuItem value='Este'>Este</MenuItem>
-                                    <MenuItem value='Oeste'>Oeste</MenuItem>
-                                </SelectCustom>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6}>
-                                <SelectCustom value={values.call_purpose} name='call_purpose' label='Motivo de llamada' helpertext={''} onChange={handleChange}>
-                                    <MenuItem value='0' disabled>Seleccione una motivo</MenuItem>
-                                    <MenuItem value='Alquiler'>Alquiler</MenuItem>
-                                    <MenuItem value='Venta'>Venta</MenuItem>
-                                    <MenuItem value='Compra'>Compra</MenuItem>
-                                    <MenuItem value='Publicidad'>Publicidad</MenuItem>
-                                </SelectCustom>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6}>
-                                <TextFieldCustom multiline label='Comentario' value={values.feedback} name={'feedback'} onChange={handleChange} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <ButtonCustom type='submit'>Registrar llamada</ButtonCustom>
-                            </Grid>
-                        </Grid>
-                    </Form>
+                    <CallForm {...{ values, errors, touched, handleChange, handleSubmit, setBirthday, setCountryCode }} />
                 )}
             </Formik>
         </Layout >
