@@ -1,24 +1,17 @@
-import { Dispatch, FC, FormEvent, SetStateAction, useContext, useState } from 'react';
-
-import Grid from '@mui/material/Grid';
+import { useContext, useState } from 'react';
 
 import { green } from '@mui/material/colors';
 
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista } from '../../../components/ui/content';
-import { ButtonCustom, SelectCustom, TextFieldCustom, TextFieldWithIconCustom, TypographyCustom } from '../../../components/custom';
-import { Formik, Form, FormikState } from 'formik';
+import { Formik, FormikState } from 'formik';
 import { AuthContext } from '../../../context/auth';
-import { baseUrl, countriesArray } from '../../../common';
+import { baseUrl } from '../../../common';
 import { OptionsList } from '../../../components/ui/options';
-import { ICall, IClient, Option } from '../../../interfaces';
+import { ICall, Option } from '../../../interfaces';
 import Swal from 'sweetalert2';
 import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import ListRounded from '@mui/icons-material/ListRounded';
-import { Autocomplete, Box, Dialog, IconButton, MenuItem, Toolbar } from '@mui/material';
-import { NumericFormat } from 'react-number-format';
-import { CloseRounded } from '@mui/icons-material';
-import { CalendarCustom } from '../../../components/custom/CalendarCustom';
 import { CallForm } from '../../../components/admin/calls';
 
 const initialValues: IValuesCall = {
