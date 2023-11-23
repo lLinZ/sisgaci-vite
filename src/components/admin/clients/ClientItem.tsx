@@ -5,7 +5,7 @@ import { blue } from "@mui/material/colors";
 import VisibilityRounded from "@mui/icons-material/VisibilityRounded";
 
 import { TypographyCustom } from "../../custom";
-import { AditionalDetailDialog } from ".";
+import { AditionalDetailDialog, DetailsDialog } from ".";
 
 import { IClient } from "../../../interfaces";
 
@@ -23,9 +23,7 @@ export const ClientItem: FC<Props> = ({ client }) => {
                 <TypographyCustom variant='subtitle1'>{client.email}</TypographyCustom>
             </Box>
             <Box sx={styles.actions}>
-                <IconButton sx={{ color: blue[800] }}>
-                    <VisibilityRounded />
-                </IconButton>
+                <DetailsDialog id={client.id} />
                 <AditionalDetailDialog client={client} />
             </Box>
         </Box>

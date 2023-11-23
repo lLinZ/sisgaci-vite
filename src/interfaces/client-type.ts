@@ -2,7 +2,7 @@ export interface IClient {
     id: number;
     first_name: string;
     middle_name?: string;
-    lastname?: string;
+    lastname: string;
     second_lastname?: string;
     document?: string;
     phone?: string;
@@ -10,6 +10,7 @@ export interface IClient {
     nationality: string;
     gender: string;
     marital_status: string;
+    birthday?: string;
     origin: string;
     created_at: string;
     updated_at: string;

@@ -3,7 +3,8 @@ import { IUser, ISalesAgent, IClient } from ".";
 export interface ICall {
     id: number;
     origin: string;
-    property: string;
+    property?: string;
+    property_type: string;
     call_date: string;
     call_purpose: string;
     feedback: string;

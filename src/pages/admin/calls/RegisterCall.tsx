@@ -24,12 +24,15 @@ const initialValues: IValuesCall = {
     lastname: '',
     second_lastname: '',
     origin: '0',
-    property: '',
     call_date: String(new Date()),
     call_purpose: '0',
     feedback: '',
+    property: '',
+    property_type: '0',
+    gender: '0',
+    email: '',
     created_at: '',
-    updated_at: ''
+    updated_at: '',
 }
 export type IValuesCall = Partial<ICall> & {
     marital_status: string;
@@ -40,6 +43,10 @@ export type IValuesCall = Partial<ICall> & {
     middle_name?: string;
     second_lastname?: string;
     document?: string;
+    property?: string;
+    property_type: string;
+    gender: string;
+    email: string;
 }
 
 export const RegisterCall = () => {
@@ -77,6 +84,9 @@ export const RegisterCall = () => {
         if (!values.feedback) {
             errors.push('El campo comentario es obligatorio');
         };
+        if (!values.property_type || values.property_type === '0') {
+            errors.push('El tipo de inmueble es obligatorio');
+        };
         if (errors.length > 0) {
             let errorString = '';
             errors.map((e: string) => errorString += `- ${e} </br>`);
@@ -97,11 +107,19 @@ export const RegisterCall = () => {
         body.append('lastname', String(values.lastname));
         body.append('second_lastname', String(values.second_lastname));
         body.append('document', String(values.document));
+        body.append('marital_status', String(values.marital_status));
+        body.append('nationality', String(values.nationality));
+        body.append('gender', String(values.gender));
+        body.append('email', String(values.email));
+        body.append('birthday', String(birthday));
+
         body.append('origin', String(values.origin));
         body.append('zone', String(values.zone));
+        body.append('property', String(values.property));
+        body.append('property_type', String(values.property_type));
         body.append('call_purpose', String(values.call_purpose));
         body.append('feedback', String(values.feedback));
-        body.append('birthday', String(birthday));
+
         const options = {
             method: 'POST',
             headers: {
