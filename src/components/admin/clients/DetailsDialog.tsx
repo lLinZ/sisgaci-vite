@@ -1,6 +1,6 @@
 import { CloseRounded, VisibilityRounded } from '@mui/icons-material';
-import { IconButton, Dialog, AppBar, Toolbar, Box, Grid, MenuItem, Alert, AlertTitle, Avatar, lighten, Divider } from '@mui/material';
-import { green, grey } from '@mui/material/colors';
+import { IconButton, Dialog, AppBar, Toolbar, Box, Grid, MenuItem, Alert, AlertTitle, Avatar, lighten, Divider, Tooltip } from '@mui/material';
+import { blue, green, grey } from '@mui/material/colors';
 import { FC, useContext, useEffect, useState } from 'react'
 import { TypographyCustom, SelectCustom, TextFieldCustom, ButtonCustom } from '../../custom';
 import { DescripcionDeVista, Loading } from '../../ui/content';
@@ -76,9 +76,11 @@ export const DetailsDialog: FC<Props> = ({ id }) => {
     }
     return (
         <>
-            <IconButton sx={{ color: green[500] }} onClick={handleClick}>
-                <VisibilityRounded />
-            </IconButton>
+            <Tooltip title='Ver informacion'>
+                <IconButton sx={{ color: blue[500] }} onClick={handleClick}>
+                    <VisibilityRounded />
+                </IconButton>
+            </Tooltip>
             <Dialog open={open} fullScreen>
                 <AppBar sx={{ width: '100vw', position: 'relative', background: grey[900] }} elevation={0}>
                     <Toolbar color={'primary'}>
