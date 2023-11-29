@@ -54,7 +54,7 @@ export const RegisterCall = () => {
     const [birthday, setBirthday] = useState<string>('');
     const { authState } = useContext(AuthContext)
     const options: Option[] = [
-        { text: 'Listar llamadas', path: '/admin/calls', color: green[500], icon: <ListRounded /> },
+        { text: 'Listar llamadas', path: '/admin/calls/search', color: green[500], icon: <ListRounded /> },
     ]
     const onSubmit = async (
         values: IValuesCall,

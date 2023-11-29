@@ -19,7 +19,7 @@ import { useGet } from "../../../http";
 const title = 'Llamadas';
 
 export const Calls = () => {
-    const { data: calls, loading, setValue: setCalls } = useGet('/call');
+    const { data: calls, loading, setData: setCalls } = useGet('/call');
     const options: Option[] = [
         { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
         { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },

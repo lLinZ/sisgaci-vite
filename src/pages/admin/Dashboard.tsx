@@ -14,7 +14,7 @@ export const Dashboard = () => {
     const clientOptions: Option[] = [
         { text: 'Usuarios', icon: <PeopleIcon />, color: green[800], path: '/admin/users' },
         { text: 'Clientes', icon: <Diversity2Rounded />, color: blue[800], path: '/admin/clients' },
-        { text: 'Llamadas', icon: <CallRounded />, color: pink[800], path: '/admin/calls' },
+        { text: 'Llamadas', icon: <CallRounded />, color: pink[800], path: '/admin/calls/search' },
     ]
     return (
         <Layout>

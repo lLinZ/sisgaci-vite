@@ -8,7 +8,7 @@ import { TypographyCustom } from '../../custom'
 import { ICall } from '../../../interfaces'
 import { Visibility } from '@mui/icons-material'
 import VisibilityRounded from '@mui/icons-material/VisibilityRounded'
-import { CallDetails } from '.'
+import { CallDetails, CallDetailsDialog } from '.'
 
 interface Props {
     call: ICall;
@@ -24,7 +24,7 @@ export const CallItem: FC<Props> = ({ call }) => {
                 <TypographyCustom variant='subtitle2' color='text.secondary'>Creada el {moment(call.created_at).format('DD-MM-YYYY')} a las {moment(call.created_at).format('HH:mm:ss')}</TypographyCustom>
             </Box>
             <Box sx={styles.actions}>
-                <CallDetails id={call.id} />
+                <CallDetailsDialog id={call.id} />
             </Box>
         </Box>
     )
