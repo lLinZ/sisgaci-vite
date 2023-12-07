@@ -68,6 +68,36 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
             setLoadingComments(false);
         }
     }
+    const styles = {
+        mainContent: {
+            width: { xs: '100%', sm: '100%' },
+            margin: 'auto',
+            mt: 0.5,
+            display: 'flex',
+            flexFlow: 'column nowrap',
+            mb: 1,
+        },
+        namesBox: {
+            display: 'flex',
+            flexFlow: 'row wrap',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        actions: {
+            width: '100%',
+            overflow: 'scroll',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'start'
+        },
+        divider: { borderColor: 'rgba(100,100,100,0.0)' },
+        chip: {
+            background: lighten(authState.color, 0.5),
+            color: darken(authState.color, 0.3),
+            mr: 1,
+            fontFamily: 'Geologica'
+        },
+    }
     return (
         <Formik
             initialValues={{ feedback: '' }}
@@ -92,25 +122,25 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
                                     </Tooltip>}
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'Se le ofrecieron opciones al cliente, ')
-                                }} size={'small'} label={'Opciones'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'Opciones'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'El seguimiento del cliente ha finalizado, ')
-                                }} size={'small'} label={'Seguimiento finalizado'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'Seguimiento finalizado'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'El cliente no atendio la(s) llamada(s), ')
-                                }} size={'small'} label={'No atiende'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'No atiende'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'El cliente se encuentra de viaje, ')
-                                }} size={'small'} label={'En viaje'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'En viaje'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'Se le hizo seguimiento al cliente, ')
-                                }} size={'small'} label={'Seguimiento'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'Seguimiento'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'Se contacto al cliente por medios propios, ')
-                                }} size={'small'} label={'Medios propios'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'Medios propios'} sx={styles.chip} />
                                 <Chip onClick={() => {
                                     setFieldValue('feedback', values.feedback + 'Consolitex, ')
-                                }} size={'small'} label={'Consolitex'} sx={{ background: lighten(authState.color, 0.5), color: darken(authState.color, 0.3), fontWeight: 'bold', mr: 1 }} />
+                                }} size={'small'} label={'Consolitex'} sx={styles.chip} />
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -140,28 +170,4 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
             )}
         </Formik>
     )
-}
-const styles = {
-    mainContent: {
-        width: { xs: '100%', sm: '100%' },
-        margin: 'auto',
-        mt: 0.5,
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        mb: 1,
-    },
-    namesBox: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    actions: {
-        width: '100%',
-        overflow: 'scroll',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'start'
-    },
-    divider: { borderColor: 'rgba(100,100,100,0.0)' }
 }
