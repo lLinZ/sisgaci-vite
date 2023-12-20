@@ -5,7 +5,7 @@ import { Dashboard } from './pages/admin';
 import { AuthContext } from './context/auth';
 import { Users, RegisterMaster } from './pages/admin/auth';
 import { RegisterUser } from './pages/admin/auth/RegisterUser';
-import { Clients, RegisterClient } from './pages/admin/clients';
+import { Clients } from './pages/admin/clients';
 import { CallsSearch, Calls, RegisterCall } from './pages/admin/calls';
 import { Departments, RegisterDepartment } from './pages/admin/departments';
 import { Acquisitions, CreateAcquisition } from './pages/admin/acquisitions';
@@ -53,7 +53,6 @@ function App() {
 
           {/* Clientes */}
           <Route path='/admin/clients' element={<Clients />} />
-          <Route path='/admin/clients/add' element={<RegisterClient />} />
 
           {/* Propiedades */}
           <Route path='/admin/property' element={<PropertiesConfiguration />} />
