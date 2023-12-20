@@ -14,6 +14,10 @@ import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import ListRounded from '@mui/icons-material/ListRounded';
 import { CallForm } from '../../../components/admin/calls';
 
+
+/**
+ * Valores iniciales del formulario Formik
+ */
 const initialValues: IValuesCall = {
     marital_status: '0',
     nationality: '0',
@@ -34,6 +38,8 @@ const initialValues: IValuesCall = {
     created_at: '',
     updated_at: '',
 }
+
+// Tipo de datos de los campos del formulario 
 export type IValuesCall = Partial<ICall> & {
     marital_status: string;
     nationality: string;
@@ -53,9 +59,19 @@ export const RegisterCall = () => {
     const [countryCode, setCountryCode] = useState<string | null>(null);
     const [birthday, setBirthday] = useState<string>('');
     const { authState } = useContext(AuthContext)
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Listar llamadas', path: '/admin/calls/search', color: green[500], icon: <ListRounded /> },
     ]
+
+    /**
+     * Funcion para registrar una nueva llamada, se ejecuta al enviar el formulario Formik
+     * @param values Valores de los campos del formulario
+     * @param resetForm Funcion para reiniciar los campos del formulario
+     * @returns void
+     */
     const onSubmit = async (
         values: IValuesCall,
         resetForm: (nextState?: Partial<FormikState<IValuesCall>> | undefined) => void) => {
@@ -112,7 +128,6 @@ export const RegisterCall = () => {
         body.append('gender', String(values.gender));
         body.append('email', String(values.email));
         body.append('birthday', String(birthday));
-
         body.append('origin', String(values.origin));
         body.append('zone', String(values.zone));
         body.append('property', String(values.property));

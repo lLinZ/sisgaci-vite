@@ -21,7 +21,8 @@ export const useGet: (url: string) => any = (url) => {
             const response = await fetch(_url, options);
             switch (response.status) {
                 case 200:
-                    const { data } = await response.json()
+                    const response_data = await response.json();
+                    const data = response_data.data.data;
                     setData(data)
                     break;
                 case 400:

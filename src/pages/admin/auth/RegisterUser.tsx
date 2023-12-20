@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 
-import { blue, green } from '@mui/material/colors';
+import { amber, blue, green, pink } from '@mui/material/colors';
 
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista } from '../../../components/ui/content';
@@ -18,7 +18,7 @@ import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
 import { Box, IconButton, MenuItem, SelectChangeEvent, Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { AddRounded } from '@mui/icons-material';
+import { AddRounded, BusinessCenter } from '@mui/icons-material';
 
 const initialValues: IValues = {
     first_name: '',
@@ -30,6 +30,7 @@ const initialValues: IValues = {
     phone: '',
     address: '',
     password: '',
+    level: '',
 }
 interface IValues {
     first_name: string;
@@ -41,6 +42,7 @@ interface IValues {
     phone: string;
     address: string;
     password: string;
+    level: string;
 }
 
 export const RegisterUser = () => {
@@ -108,6 +110,7 @@ export const RegisterUser = () => {
     const options: Option[] = [
         { text: 'Agregar Master', path: '/admin/register/master', color: green[500], icon: <PersonAddRounded /> },
         { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
+        { text: 'Crear departamento', path: '/admin/department/add', color: pink[500], icon: <BusinessCenter /> },
     ]
     const onSubmit = async (
         values: IValues,
@@ -135,6 +138,7 @@ export const RegisterUser = () => {
         body.append('address', values.address);
         body.append('document', values.document);
         body.append('password', values.password);
+        body.append('level', values.level);
         const options = {
             method: 'POST',
             headers: {
@@ -194,10 +198,11 @@ export const RegisterUser = () => {
     useEffect(() => {
         getDepartments();
     }, [])
+    const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     return (
         <Layout>
             <DescripcionDeVista title={'Registrar usuario'} description={'Registra un nuevo usuario basico y selecciona el departamento correspondiente'} />
-            <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
+            <OptionsList options={options} breakpoints={{ xs: 12, sm: 4, md: 4, lg: 4 }} />
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
@@ -232,7 +237,15 @@ export const RegisterUser = () => {
                             <Grid item xs={12}>
                                 <TextFieldCustom value={values.address} label='Direccion' name={'address'} onChange={handleChange} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={6}>
+                                <SelectCustom helpertext='' label='Nivel de acceso' name={'level'} value={values.level} onChange={handleChange}>
+                                    <MenuItem value='0' disabled>Seleccione un nivel</MenuItem>
+                                    {levels.map((lvl: number) => (
+                                        <MenuItem key={lvl} value={String(lvl)}>{lvl}</MenuItem>
+                                    ))}
+                                </SelectCustom>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', flexFlow: 'row nowrap', alignItems: 'center' }}>
 
                                     <SelectCustom helpertext='' label='Departamento' value={departmentSelected ? departmentSelected.id : '0'} onChange={(e: SelectChangeEvent<any>) => {

@@ -17,17 +17,9 @@ import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
 
-const initialValues: IValues = {
-    first_name: '',
-    middle_name: '',
-    lastname: '',
-    second_lastname: '',
-    document: '',
-    email: '',
-    phone: '',
-    address: '',
-    password: '',
-}
+/**
+ * Tipo de datos que tendran los campos del formulario formik
+ */
 interface IValues {
     first_name: string;
     middle_name: string;
@@ -40,12 +32,37 @@ interface IValues {
     password: string;
 }
 
+/**
+ * Valores iniciales del formulario Formik
+ */
+const initialValues: IValues = {
+    first_name: '',
+    middle_name: '',
+    lastname: '',
+    second_lastname: '',
+    document: '',
+    email: '',
+    phone: '',
+    address: '',
+    password: '',
+}
+
 export const RegisterMaster = () => {
     const { authState } = useContext(AuthContext)
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Agregar Usuario', path: '/admin/users/add', color: green[500], icon: <PersonAddRounded /> },
         { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
     ]
+
+    /**
+     * Funcion para registrar un nuevo master, se ejecutara al enviar el formulario.
+     * @param values Valores del formulario Formik
+     * @param resetForm Funcion para reiniciar los valores de los campos del formulario
+     */
     const onSubmit = async (
         values: IValues,
         resetForm: (nextState?: Partial<FormikState<IValues>> | undefined) => void) => {
@@ -119,7 +136,7 @@ export const RegisterMaster = () => {
     return (
         <Layout>
             <DescripcionDeVista title={'Registrar Master'} description={'Registra un nuevo usuario de rol Master (acceso exclusivo para SISTEMAS)'} />
-            <OptionsList options={options} breakpoints={{ xs: 12, sm:6, md:6, lg:6 }} />
+            <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}

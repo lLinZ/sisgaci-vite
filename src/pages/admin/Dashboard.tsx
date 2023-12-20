@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import { green, blue, pink } from "@mui/material/colors"
+import { green, blue, pink, amber } from "@mui/material/colors"
 import { useContext } from "react"
 import { OptionsList } from "../../components/ui/options"
 import { TypographyCustom } from "../../components/custom"
@@ -7,18 +7,23 @@ import { Layout } from "../../components/ui"
 import { AuthContext } from "../../context/auth"
 import { Option } from '../../interfaces';
 import PeopleIcon from '@mui/icons-material/PeopleRounded';
+import BuildingRounded from '@mui/icons-material/BusinessCenterRounded';
 import CallRounded from "@mui/icons-material/CallRounded"
 import Diversity2Rounded from "@mui/icons-material/Diversity2Rounded"
 export const Dashboard = () => {
     const context = useContext(AuthContext)
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const clientOptions: Option[] = [
         { text: 'Usuarios', icon: <PeopleIcon />, color: green[800], path: '/admin/users' },
         { text: 'Clientes', icon: <Diversity2Rounded />, color: blue[800], path: '/admin/clients' },
         { text: 'Llamadas', icon: <CallRounded />, color: pink[800], path: '/admin/calls/search' },
+        { text: 'Captaciones', icon: <BuildingRounded />, color: amber[800], path: '/admin/acquisitions' },
     ]
     return (
         <Layout>
-
             <Box sx={styles.nameContainer}>
                 <TypographyCustom variant='h4' fontWeight={'bold'}>
                     Hola, {context.authState.first_name}!
@@ -37,7 +42,9 @@ export const Dashboard = () => {
         </Layout>
     )
 }
-
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     nameContainer: {
         borderRadius: 3,

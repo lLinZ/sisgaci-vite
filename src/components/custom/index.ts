@@ -4,3 +4,4 @@ export * from './TypographyCustom.tsx';
 export * from './SelectCustom.tsx';
 export * from './TextFieldCustom.tsx';
 export * from './TextFieldWithIconCustom.tsx';
+export * from './InputFileCustom.tsx';

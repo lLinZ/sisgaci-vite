@@ -19,6 +19,10 @@ export const CallDetails: FC<Props> = ({ id }) => {
     const [call, setCall] = useState<ICall | null>(null);
     const [comments, setComments] = useState<IComment[] | null>(null);
     const { authState } = useContext(AuthContext);
+
+    /**
+     * Funcion para obtener una llamada segun su ID
+     */
     const getCall = async () => {
         setLoading(true);
         const url = `${baseUrl}/call/${id}`;

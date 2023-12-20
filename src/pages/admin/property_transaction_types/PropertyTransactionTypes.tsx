@@ -17,10 +17,18 @@ export const PropertyTransactionTypes = () => {
     const [transactionTypes, setTransactionTypes] = useState<IPropertyTransactionType[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const { authState } = useContext(AuthContext)
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Agregar departamento', path: '/admin/department/add', color: green[500], icon: <BusinessCenterOutlined /> },
         { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },
     ]
+
+    /**
+     * Funcion para obtener los tipos de transaccion de propiedades disponibles
+     */
     const getTransactionTypes = async () => {
         const url = `${baseUrl}/property_transaction_types`;
         const options = {
@@ -65,6 +73,10 @@ export const PropertyTransactionTypes = () => {
         </Layout>
     )
 }
+
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     contentBox: {
         mb: 2,

@@ -20,6 +20,10 @@ const title = 'Llamadas';
 
 export const Calls = () => {
     const { data: calls, loading, setData: setCalls } = useGet('/call');
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
         { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },
@@ -35,6 +39,10 @@ export const Calls = () => {
         </Layout>
     )
 }
+
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     loaderBox: {
         display: 'flex',

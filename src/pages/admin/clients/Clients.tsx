@@ -15,6 +15,10 @@ const title = 'Clientes'
 
 export const Clients = () => {
     const { data: clients, loading, setData } = useGet('/client');
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Agregar departamento', path: '/admin/department/add', color: green[500], icon: <BusinessCenterOutlined /> },
         { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },

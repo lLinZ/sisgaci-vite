@@ -18,19 +18,36 @@ import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
 import GroupRounded from '@mui/icons-material/GroupRounded';
 
+
+/**
+ * Valores iniciales de los campos del formulario Formik
+ */
 const initialValues: IValues = {
     description: '',
 }
+/**
+ * Tipo de dato de los campos del formulario
+ */
 interface IValues {
     description: string;
 }
 
 export const RegisterDepartment = () => {
     const { authState } = useContext(AuthContext)
+
+    /**
+     * Opciones del menu de navegacion superior
+     */
     const options: Option[] = [
         { text: 'Listar departamentos', path: '/admin/departments', color: green[500], icon: <ListRounded /> },
         { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },
     ]
+
+    /**
+     * Funcion para registrar un nuevo departamento, esta funcion se ejecuta al enviar el formulario Formik
+     * @param values Valores de los campos del formulario 
+     * @param resetForm Funcion para reiniciar los campos del formulario
+     */
     const onSubmit = async (
         values: IValues,
         resetForm: (nextState?: Partial<FormikState<IValues>> | undefined) => void) => {

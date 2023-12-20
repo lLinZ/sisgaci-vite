@@ -18,6 +18,13 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
     const [errors, setErrors] = useState<string[] | null>(null);
     const [positive, setPositive] = useState<string[] | null>(null);
     const { authState } = useContext(AuthContext);
+
+    /**
+     * Funcion para registrar un nuevo comentario de la llamada, esta funcion se ejecuta al enviar el formulario Formik
+     * @param values Valores de los campos del formulario 
+     * @param formikHelpers 
+     * @returns void
+     */
     const onSubmit = async (values: { feedback: string }, formikHelpers: FormikHelpers<{ feedback: string }>): Promise<void> => {
         setErrors(null);
         setPositive(null);
@@ -68,6 +75,10 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
             setLoadingComments(false);
         }
     }
+
+    /**
+     * Estilos de los componentes MUI
+     */
     const styles = {
         mainContent: {
             width: { xs: '100%', sm: '100%' },

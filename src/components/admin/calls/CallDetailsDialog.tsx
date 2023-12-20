@@ -11,9 +11,8 @@ import { blue, grey, red, } from '@mui/material/colors';
 import { DescripcionDeVista, Loading } from '../../ui/content';
 import { Form, Formik, FormikHelpers } from 'formik';
 import BackspaceRounded from '@mui/icons-material/BackspaceRounded';
-import { Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator, TimelineConnector, TimelineDot, TimelineContent } from '@mui/lab';
-import moment from 'moment';
 import { CommentList } from './comments';
+import moment from 'moment';
 
 interface Props {
     id: number;
@@ -93,6 +92,12 @@ export const CallDetailsDialog: FC<Props> = ({ id }) => {
         setErrors(null);
         setPositive(null);
     }
+    /**
+     * Funcion para registrar un nuevo comentario en una llamada, esta funcion se ejecuta al enviar el formulario Formik
+     * @param values Valores de los campos del formulario
+     * @param formikHelpers 
+     * @returns void
+     */
     const onSubmit = async (values: { feedback: string }, formikHelpers: FormikHelpers<{ feedback: string }>): Promise<void> => {
         setErrors(null);
         setPositive(null);
@@ -189,7 +194,7 @@ export const CallDetailsDialog: FC<Props> = ({ id }) => {
                             {/* -----------------------------
                             INFORMACION DEL CLIENTE
                             -----------------------------
-                         */}
+                            */}
                             <Grid item xs={12}>
                                 <Box sx={styles.namesBox}>
                                     <TypographyCustom variant={'overline'} _color={'p'}>Información del cliente</TypographyCustom>
@@ -266,7 +271,7 @@ export const CallDetailsDialog: FC<Props> = ({ id }) => {
                             {/* -----------------------------
                             INFORMACION DE LA LLAMADA
                             -----------------------------
-                         */}
+                            */}
                             <Grid item xs={12}>
                                 <Box sx={styles.namesBox}>
                                     <TypographyCustom variant={'overline'} _color='p'>Información de la llamada</TypographyCustom>
@@ -396,6 +401,10 @@ export const CallDetailsDialog: FC<Props> = ({ id }) => {
         </>
     )
 }
+
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     mainContent: {
         width: { xs: '100%', sm: '80%' },

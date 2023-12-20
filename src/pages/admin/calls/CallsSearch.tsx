@@ -18,6 +18,10 @@ import { CallDetails, CallItem } from '../../../components/admin/calls';
 import { useNavigate } from 'react-router-dom';
 
 const title = 'Llamadas';
+
+/**
+ * Valores iniciales
+ */
 const initialValues = {
     phone: '',
     countryCode: '(+58) Venezuela, Bolivarian Republic of Venezuela',
@@ -32,7 +36,17 @@ export const CallsSearch = () => {
         { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
         { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },
     ]
+    /**
+     * Hook para navegar con react router dom
+     */
     const router = useNavigate()
+
+    /**
+     * Funcion para buscar una llamada registrada
+     * @param values Valores del formulario Formik
+     * @param resetForm Funcion para reiniciar los datos del formulario
+     * @returns void
+     */
     const onSubmit = async (values: { phone: string; countryCode: string; }, resetForm: (nextState?: Partial<FormikState<{ phone: string; countryCode: string; }>> | undefined) => void) => {
         setCall(null);
         setLoading(true);
@@ -163,40 +177,46 @@ export const CallsSearch = () => {
                         <TypographyCustom sx={{ mb: 1 }}>Para ver el contenido de la llamada escriba un comentario</TypographyCustom>
                         <Formik
                             initialValues={{ feedback: '' }}
-                            onSubmit={async (values, { resetForm }) => {
-                                setLoading(true);
-                                const url = `${baseUrl}/call/comment/${call?.id}`
-                                const body = new URLSearchParams();
-                                body.append('feedback', values.feedback);
-                                const options = {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Authorization': `Bearer ${authState.token}`
-                                    },
-                                    body
-                                }
-                                try {
-                                    const response = await fetch(url, options);
-                                    switch (response.status) {
-                                        case 200:
-                                            setBlocked(false);
-                                            break;
-                                        case 400:
-                                            break;
-                                        case 404:
-                                            break;
-                                        case 500:
-                                            break;
-                                        default:
-                                            break;
+                            onSubmit={
+                                /**
+                                 * Funcion para registrar el comentario del usuario acerca de la llamada buscada
+                                 * @param values Valores del formulario Formik
+                                 * @param resetForm Funcion para reiniciar los datos de los campos del formulario 
+                                 */
+                                async (values, { resetForm }) => {
+                                    setLoading(true);
+                                    const url = `${baseUrl}/call/comment/${call?.id}`
+                                    const body = new URLSearchParams();
+                                    body.append('feedback', values.feedback);
+                                    const options = {
+                                        method: 'POST',
+                                        headers: {
+                                            'Accept': 'application/json',
+                                            'Authorization': `Bearer ${authState.token}`
+                                        },
+                                        body
                                     }
-                                } catch (error) {
+                                    try {
+                                        const response = await fetch(url, options);
+                                        switch (response.status) {
+                                            case 200:
+                                                setBlocked(false);
+                                                break;
+                                            case 400:
+                                                break;
+                                            case 404:
+                                                break;
+                                            case 500:
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    } catch (error) {
 
-                                } finally {
-                                    setLoading(false);
-                                }
-                            }}
+                                    } finally {
+                                        setLoading(false);
+                                    }
+                                }}
                         >
                             {({ values, handleChange, handleSubmit }) => (
                                 <Form onSubmit={handleSubmit} style={{ width: '80%' }}>
@@ -229,7 +249,9 @@ export const CallsSearch = () => {
         </Layout>
     )
 }
-
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     loaderBox: {
         display: 'flex',
