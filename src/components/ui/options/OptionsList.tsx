@@ -16,7 +16,7 @@ export const OptionsList = (props: Props) => {
     return (
         <Grid container display='flex' alignItems='center' justifyContent='space-between' spacing={1} sx={{ padding: 2 }}>
             {props.options.map((option) => (
-                <Grid item {...breakpoints} key={option.text}>
+                <Grid item key={option.text} {...breakpoints} >
                     <OptionWidget option={option} />
                 </Grid>
             ))}

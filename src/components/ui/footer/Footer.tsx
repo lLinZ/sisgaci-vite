@@ -21,7 +21,7 @@ export const Footer: FC = () => {
     }
 
     // Render
-    return (<>
+    return (
         <Box sx={styles.main}>
             <Box sx={styles.redes}>
                 <Redes />
@@ -39,7 +39,6 @@ export const Footer: FC = () => {
                 </Grid>
             </Grid>
             <Box sx={styles.cintillo}>Desarrollado por Linz Web Dev</Box>
-        </Box >
-    </>
+        </Box>
     )
 }

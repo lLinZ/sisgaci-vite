@@ -127,12 +127,12 @@ export const AditionalDetailDialog: FC<Props> = ({ client }) => {
                     {errors && errors.length > 0 && (
                         <Alert severity="error" sx={{ mt: 2 }} onClose={() => setErrors(null)}>
                             <AlertTitle>Error</AlertTitle>
-                            {errors?.map((e) => (<TypographyCustom color={'error'}>{e}</TypographyCustom>))}
+                            {errors?.map((e, i: number) => (<TypographyCustom key={i} color={'error'}>{e}</TypographyCustom>))}
                         </Alert>)}
                     {positive && positive.length > 0 && (
                         <Alert severity="success" sx={{ mt: 2 }} onClose={() => setPositive(null)}>
                             <AlertTitle>Exito</AlertTitle>
-                            {positive?.map((e) => (<TypographyCustom color={'success'}>{e}</TypographyCustom>))}
+                            {positive?.map((e, i: number) => (<TypographyCustom key={i} color={'success'}>{e}</TypographyCustom>))}
                         </Alert>)}
                 </Box>
             </Dialog >

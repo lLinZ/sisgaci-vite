@@ -46,7 +46,7 @@ export const Perfil = (props: Props) => {
                 <Grid item xs={12} sx={styles.gridItem} >
                     <Box sx={styles.colorPickerContainer}>
                         <Box sx={{ display: "flex", flexFlow: "row wrap", alignItems: "center" }}>
-                            {authState.id !== 0 ? (<Avatar sx={{ bgcolor: authState.color ? authState.color : blue[700], mr: 2 }}>{authState.first_name.substring(0, 1)}</Avatar>) : (<></>)}
+                            {authState.id !== 0 && (<Avatar sx={{ bgcolor: authState.color ? authState.color : blue[700], mr: 2 }}>{authState.first_name.substring(0, 1)}</Avatar>)}
                             <TypographyCustom variant="subtitle1" color="text.primary" fontWeight="bold" >Color del avatar</TypographyCustom>
                         </Box>
                         <ColorPicker />

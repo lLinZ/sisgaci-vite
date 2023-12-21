@@ -164,7 +164,7 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
                             <Grid item xs={12}>
                                 <Alert severity="error" sx={{ mt: 2 }} onClose={() => setErrors(null)}>
                                     <AlertTitle>Error</AlertTitle>
-                                    {errors?.map((e) => (<TypographyCustom color={'error'}>{e}</TypographyCustom>))}
+                                    {errors?.map((e, i: number) => (<TypographyCustom key={i} color={'error'}>{e}</TypographyCustom>))}
                                 </Alert>
                             </Grid>
                         )}
@@ -172,7 +172,7 @@ export const AddNewComment: FC<Props> = ({ setComments, setLoadingComments, call
                             <Grid item xs={12}>
                                 <Alert severity="success" sx={{ mt: 2 }} onClose={() => setPositive(null)}>
                                     <AlertTitle>Exito</AlertTitle>
-                                    {positive?.map((e) => (<TypographyCustom color={'success'}>{e}</TypographyCustom>))}
+                                    {positive?.map((e, i: number) => (<TypographyCustom key={i} color={'success'}>{e}</TypographyCustom>))}
                                 </Alert>
                             </Grid>
                         )}

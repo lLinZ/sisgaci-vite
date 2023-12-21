@@ -191,6 +191,8 @@ export const CreateAcquisition = () => {
         body.append('name', values.name);
         body.append('price', values.price.replaceAll(',', ''));
         body.append('short_address', values.short_address);
+        body.append('property_type', values.property_type);
+        body.append('property_transaction_type', values.property_transaction_type);
         body.append('image', image ? image : '');
         const options = {
             method: 'POST',
