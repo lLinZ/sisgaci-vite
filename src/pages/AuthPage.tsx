@@ -16,15 +16,27 @@ const initialValues = {
     password: '',
 }
 type FormValues = { email: string, password: string };
-export const AuthPage = () => {
-    const { userLogin, validateToken } = useContext(AuthContext)
+
+const useValidateLogin = () => {
+    /**
+     * Estado del loader
+     */
     const [loading, setLoading] = useState<boolean>(false);
-    const [showPass, setShowPass] = useState<boolean>(false);
-    const toggleVisibility = () => {
-        setShowPass(!showPass)
-    }
+
+    /**
+     * Funcion del contexto para validar token
+     */
+    const { validateToken } = useContext(AuthContext)
+
+    /**
+     * Hook de react router para redireccionar
+     */
     const navigate = useNavigate();
-    const sessionValidationLoginPage = async () => {
+
+    /**
+     * Funcion para evaluar el resultado del validateToken
+     */
+    const validateSession = async () => {
         setLoading(true);
         const validation = await validateToken();
         if (validation.status) {
@@ -37,8 +49,33 @@ export const AuthPage = () => {
         }
     }
     useEffect(() => {
-        sessionValidationLoginPage();
+        validateSession();
     }, [])
+
+    return { loading, setLoading }
+}
+
+
+export const AuthPage = () => {
+
+    /**
+     * Funcion del contexto para iniciar sesion y almacenar los datos del user en el contexto
+     */
+    const { userLogin } = useContext(AuthContext);
+
+    /**
+     * Estado del loader
+     */
+    const { loading, setLoading } = useValidateLogin();
+
+
+    const [showPass, setShowPass] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    const toggleVisibility = () => {
+        setShowPass(!showPass)
+    }
+
     const onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => any = async (values) => {
         if (!values.email || !values.password) {
             return false;
@@ -56,7 +93,6 @@ export const AuthPage = () => {
                 showConfirmButton: false,
                 timerProgressBar: true,
             });
-            console.log({ result });
             const url = role!.description.toLowerCase() === 'cliente' ? '/dashboard' : '/admin/dashboard';
             navigate(url);
         } else {
@@ -72,8 +108,12 @@ export const AuthPage = () => {
         }
     }
 
+    /**
+     * Mostrar loader
+     */
+    if (loading) return <PageLoading customMessage='Validando sesion...' />
+
     return (<>
-        {loading && <PageLoading customMessage='Validando sesion...' />}
         <Box sx={styles.container}>
             <img src='/logo.png' width='200' height='200' />
             <Formik initialValues={initialValues} onSubmit={onSubmit} >
@@ -104,6 +144,10 @@ export const AuthPage = () => {
     </>
     )
 }
+
+/**
+ * Estilos de los componentes MUI
+ */
 const styles = {
     container: {
         width: { xs: '100%', sm: '80%', md: '50%' },

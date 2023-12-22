@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 
@@ -6,16 +6,17 @@ import { blue, green } from '@mui/material/colors';
 
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista } from '../../../components/ui/content';
-import { ButtonCustom, TextFieldCustom } from '../../../components/custom';
+import { ButtonCustom, SelectCustom, TextFieldCustom } from '../../../components/custom';
 import { Formik, Form, FormikState } from 'formik';
 import { AuthContext } from '../../../context/auth';
 import { baseUrl } from '../../../common';
 import { OptionsList } from '../../../components/ui/options';
-import { Option } from '../../../interfaces';
+import { IDepartment, Option } from '../../../interfaces';
 import Swal from 'sweetalert2';
 import { errorArrayLaravelTransformToString } from '../../../helpers/functions';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ListRounded from '@mui/icons-material/ListRounded';
+import { MenuItem } from '@mui/material';
 
 /**
  * Tipo de datos que tendran los campos del formulario formik
@@ -30,6 +31,8 @@ interface IValues {
     phone: string;
     address: string;
     password: string;
+    level: string;
+    department: string;
 }
 
 /**
@@ -45,10 +48,53 @@ const initialValues: IValues = {
     phone: '',
     address: '',
     password: '',
+    level: '0',
+    department: '0',
+}
+const useGetDepartments = () => {
+    const { authState } = useContext(AuthContext)
+    const [departments, setDepartments] = useState<IDepartment[] | null>(null)
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState<string[]>([]);
+    const getDepartments = async () => {
+        setLoading(true)
+        const url = `${baseUrl}/department`;
+        const options = {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${authState.token}`
+            }
+        }
+
+        try {
+            const response = await fetch(url, options);
+
+            switch (response.status) {
+                case 200:
+                    const { data } = await response.json();
+                    setDepartments(data);
+                    break;
+                default:
+                    setErrors(['Ocurrio un error inesperado al consultar los departamentos']);
+                    break;
+            }
+        } catch (error) {
+            setErrors(['Ocurrio un error inesperado al conectar con el servidor']);
+        } finally {
+            setLoading(false);
+        }
+    }
+    useEffect(() => {
+        getDepartments();
+    }, [])
+
+    return { departments, setDepartments, loading, errors }
 }
 
 export const RegisterMaster = () => {
     const { authState } = useContext(AuthContext)
+    const { departments } = useGetDepartments();
 
     /**
      * Opciones del menu de navegacion superior
@@ -76,6 +122,8 @@ export const RegisterMaster = () => {
         body.append('email', values.email);
         body.append('address', values.address);
         body.append('document', values.document);
+        body.append('department', values.department);
+        body.append('level', values.level);
         body.append('password', values.password);
         const options = {
             method: 'POST',
@@ -133,6 +181,8 @@ export const RegisterMaster = () => {
             });
         }
     }
+
+    const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     return (
         <Layout>
             <DescripcionDeVista title={'Registrar Master'} description={'Registra un nuevo usuario de rol Master (acceso exclusivo para SISTEMAS)'} />
@@ -167,6 +217,23 @@ export const RegisterMaster = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextFieldCustom value={values.password} label='Contraseña' name={'password'} onChange={handleChange} />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <SelectCustom helpertext={''} value={values.department} label='Departamento' name="department" onChange={handleChange}>
+                                    <MenuItem value={'0'}>Seleccione un departamento</MenuItem>
+
+                                    {departments && departments.map((dep) => (
+                                        <MenuItem key={dep.id} value={dep.id}>{dep.description}</MenuItem>
+                                    ))}
+                                </SelectCustom>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <SelectCustom helpertext={''} value={values.level} label='Nivel de acceso' name="level" onChange={handleChange}>
+                                    <MenuItem value={'0'}>Seleccione un nivel</MenuItem>
+                                    {levels.map((lvl) => (
+                                        <MenuItem key={lvl} value={lvl}>{lvl}</MenuItem>
+                                    ))}
+                                </SelectCustom>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextFieldCustom value={values.address} label='Direccion' name={'address'} onChange={handleChange} />
