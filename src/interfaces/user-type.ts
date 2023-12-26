@@ -19,4 +19,6 @@ export interface IUser {
     logged: boolean;
     color: string;
     token?: string;
+    crm_id?: string;
+    // full_name?: string;
 }

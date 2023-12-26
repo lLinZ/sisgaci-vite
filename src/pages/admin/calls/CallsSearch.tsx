@@ -1,12 +1,12 @@
 import { CallRounded, GroupRounded, LockRounded } from '@mui/icons-material';
-import { Autocomplete, Box, CircularProgress, Grid, TextField } from '@mui/material';
+import { Autocomplete, Box, CircularProgress, Divider, Grid, TextField } from '@mui/material';
 import { green, blue } from '@mui/material/colors';
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista, NoContentFound } from '../../../components/ui/content';
 import { OptionsList } from '../../../components/ui/options';
 import { useGet } from '../../../http';
 import { ICall, Option } from '../../../interfaces';
-import { useContext, useState } from 'react';
+import { Dispatch, FC, useContext, useState } from 'react';
 import { baseUrl, countriesArray } from '../../../common';
 import { AuthContext } from '../../../context/auth';
 import { ButtonCustom, TextFieldCustom, TypographyCustom } from '../../../components/custom';
@@ -30,7 +30,7 @@ export const CallsSearch = () => {
     const { authState } = useContext(AuthContext);
     const [blocked, setBlocked] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [call, setCall] = useState<ICall | null>(null);
+    const [calls, setCalls] = useState<ICall[] | null>(null);
     const [countryCode, setCountryCode] = useState<string>('+58');
     const options: Option[] = [
         { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
@@ -48,7 +48,7 @@ export const CallsSearch = () => {
      * @returns void
      */
     const onSubmit = async (values: { phone: string; countryCode: string; }, resetForm: (nextState?: Partial<FormikState<{ phone: string; countryCode: string; }>> | undefined) => void) => {
-        setCall(null);
+        setCalls(null);
         setLoading(true);
         setBlocked(false);
         let errors = [];
@@ -70,7 +70,7 @@ export const CallsSearch = () => {
             return;
         }
         const phoneNumber = `${countryCode}${values.phone}`;
-        const url = `${baseUrl}/call/phone/${phoneNumber}`
+        const url = `${baseUrl}/call/phone/${phoneNumber}/${values.phone}`
         const options = {
             method: 'GET',
             headers: {
@@ -84,7 +84,7 @@ export const CallsSearch = () => {
                 case 200:
                     const { data } = await response.json();
                     console.log({ data })
-                    setCall(data);
+                    setCalls(data);
                     setBlocked(true);
                     // resetForm();
                     break;
@@ -101,7 +101,7 @@ export const CallsSearch = () => {
             }
         } catch (error) {
             console.error({ error });
-            setCall(null);
+            setCalls(null);
             setBlocked(false);
         } finally {
             setLoading(false);
@@ -170,75 +170,11 @@ export const CallsSearch = () => {
                     </Form>
                 )}
             </Formik>
-            {blocked && call &&
-                <Box sx={{ mt: 2, }}>
-                    <Box sx={{ width: '100%', borderRadius: 5, boxShadow: '0 2px 32px rgba(0,0,0,0.2)', padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', flexFlow: 'column wrap' }}>
-                        <LockRounded />
-                        <TypographyCustom sx={{ mb: 1 }}>Para ver el contenido de la llamada escriba un comentario</TypographyCustom>
-                        <Formik
-                            initialValues={{ feedback: '' }}
-                            onSubmit={
-                                /**
-                                 * Funcion para registrar el comentario del usuario acerca de la llamada buscada
-                                 * @param values Valores del formulario Formik
-                                 * @param resetForm Funcion para reiniciar los datos de los campos del formulario 
-                                 */
-                                async (values, { resetForm }) => {
-                                    setLoading(true);
-                                    const url = `${baseUrl}/call/comment/${call?.id}`
-                                    const body = new URLSearchParams();
-                                    body.append('feedback', values.feedback);
-                                    const options = {
-                                        method: 'POST',
-                                        headers: {
-                                            'Accept': 'application/json',
-                                            'Authorization': `Bearer ${authState.token}`
-                                        },
-                                        body
-                                    }
-                                    try {
-                                        const response = await fetch(url, options);
-                                        switch (response.status) {
-                                            case 200:
-                                                setBlocked(false);
-                                                break;
-                                            case 400:
-                                                break;
-                                            case 404:
-                                                break;
-                                            case 500:
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    } catch (error) {
-
-                                    } finally {
-                                        setLoading(false);
-                                    }
-                                }}
-                        >
-                            {({ values, handleChange, handleSubmit }) => (
-                                <Form onSubmit={handleSubmit} style={{ width: '80%' }}>
-                                    <Grid container spacing={1} sx={{ width: '100%' }}>
-                                        <Grid item xs={12}>
-                                            <TextFieldCustom multiline label='Comentario' name='feedback' value={values.feedback} onChange={handleChange} />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <ButtonCustom type='submit'>Enviar</ButtonCustom>
-                                        </Grid>
-                                    </Grid>
-                                </Form>
-                            )}
-                        </Formik>
-                    </Box>
-                </Box>
+            {calls &&
+                calls.length > 1 && calls.map((call) => (<BlockedCall {...{ call, setLoading }} />))
             }
-            {!blocked && call && (
-                <CallDetails id={call ? call.id : 0} />
-            )}
             {loading && <Box sx={styles.loaderBox}><CircularProgress /></Box>}
-            {!loading && blocked && !call &&
+            {!loading && blocked && !calls &&
                 <NoContentFound title={'No hubo resultados'} text={`No hay ${title.toLowerCase()} disponibles`}>
                     <TypographyCustom>Si quieres registrar el cliente y la llamada, dale click al boton de abajo!</TypographyCustom>
                     <ButtonCustom onClick={() => {
@@ -249,6 +185,89 @@ export const CallsSearch = () => {
         </Layout>
     )
 }
+interface BlockedCallProps {
+    call: ICall;
+    setLoading: Dispatch<any>;
+}
+const BlockedCall: FC<BlockedCallProps> = ({ call, setLoading }) => {
+    const { authState } = useContext(AuthContext);
+    const [blocked, setBlocked] = useState<boolean>(true);
+    /**
+     * Funcion para registrar el comentario del usuario acerca de la llamada buscada
+     * @param values Valores del formulario Formik
+     * @param resetForm Funcion para reiniciar los datos de los campos del formulario 
+    */
+    const onSubmit = async (values: { feedback: string; }) => {
+        setLoading(true);
+        const url = `${baseUrl}/call/comment/${call?.id}`
+        const body = new URLSearchParams();
+        body.append('feedback', values.feedback);
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${authState.token}`
+            },
+            body
+        }
+        try {
+            const response = await fetch(url, options);
+            switch (response.status) {
+                case 200:
+                    setBlocked(false);
+                    break;
+                case 400:
+                    break;
+                case 404:
+                    break;
+                case 500:
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    if (blocked) return (
+        <Box sx={{ mt: 2, }}>
+            <Box sx={{ width: '100%', borderRadius: 5, boxShadow: '0 2px 32px rgba(0,0,0,0.2)', padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', flexFlow: 'column wrap' }}>
+                <LockRounded />
+                <TypographyCustom sx={{ mb: 1 }}>{call.client?.phone}</TypographyCustom>
+                <TypographyCustom sx={{ mb: 1 }}>{call.client?.full_name ? call.client?.full_name : call.client?.first_name! + call.client?.lastname!}</TypographyCustom>
+                {/* <TypographyCustom sx={{ mb: 1 }}>Para ver el contenido de la llamada  escriba un comentario</TypographyCustom> */}
+                {/* <Formik
+                    initialValues={{ feedback: '' }}
+                    onSubmit={onSubmit}
+                >
+                    {({ values, handleChange, handleSubmit }) => (
+                        <Form onSubmit={handleSubmit} style={{ width: '50%' }}>
+                            <Grid container spacing={1} sx={{ width: '100%' }}>
+                                <Grid item xs={12}>
+                                    <TextFieldCustom multiline label='Comentario' name='feedback' value={values.feedback} onChange={handleChange} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <ButtonCustom type='submit'>Enviar</ButtonCustom>
+                                </Grid>
+                            </Grid>
+                        </Form>
+                    )}
+                </Formik> */}
+                <Box sx={{ width: { xs: '100%', md: '50%' } }}>
+                    <ButtonCustom onClick={() => setBlocked(false)}>Desbloquear</ButtonCustom>
+                </Box>
+            </Box>
+        </Box>
+    )
+    if (!blocked) return (<Box>
+        <Divider />
+        <CallDetails id={call.id} />
+    </Box>
+    )
+}
+
 /**
  * Estilos de los componentes MUI
  */

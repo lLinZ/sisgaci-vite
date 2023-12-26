@@ -12,6 +12,7 @@ export interface IClient {
     marital_status: string;
     birthday?: string;
     origin: string;
+    full_name?: string;
     created_at: string;
     updated_at: string;
 }

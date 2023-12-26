@@ -15,6 +15,7 @@ export interface ICall {
     client?: IClient;
     user_id?: number;
     user?: IUser;
+    crm_id?: number;
     created_at: string;
     updated_at: string;
 }
