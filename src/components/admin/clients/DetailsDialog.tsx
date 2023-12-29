@@ -5,7 +5,7 @@ import { FC, useContext, useEffect, useState } from 'react'
 import { TypographyCustom, SelectCustom, TextFieldCustom, ButtonCustom } from '../../custom';
 import { DescripcionDeVista, Loading } from '../../ui/content';
 import { IClient } from '../../../interfaces';
-import { useGet } from '../../../http';
+import { useGet } from '../../../hooks';
 import { baseUrl } from '../../../common';
 import { AuthContext } from '../../../context/auth';
 import Swal from 'sweetalert2';
