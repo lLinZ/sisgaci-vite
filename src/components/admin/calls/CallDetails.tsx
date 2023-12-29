@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, IconButton } from '@mui/material';
 import { baseUrl } from '../../../common';
 import { AuthContext } from '../../../context/auth';
 import { DescripcionDeVista, Loading } from '../../ui/content';
@@ -9,82 +9,107 @@ import { AddNewComment, CallInfo, ClientInfo } from '.';
 import { ICall, IComment } from '../../../interfaces';
 
 import Swal from 'sweetalert2';
+import { useGetCallForCallDetails } from '../../../hooks/useGetCallForCallDetails';
+import { red, blue } from '@mui/material/colors';
+import { ButtonCustom } from '../../custom';
+import { DeleteRounded } from '@mui/icons-material';
 
 interface Props {
     id: number;
 }
 export const CallDetails: FC<Props> = ({ id }) => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [loadingComments, setLoadingComments] = useState<boolean>(false);
-    const [call, setCall] = useState<ICall | null>(null);
-    const [comments, setComments] = useState<IComment[] | null>(null);
+    const { call, comments, loading, loadingComments, setComments, setLoading, setLoadingComments, getCall } = useGetCallForCallDetails(id);
     const { authState } = useContext(AuthContext);
 
-    /**
-     * Funcion para obtener una llamada segun su ID
-     */
-    const getCall = async () => {
-        setLoading(true);
+    const alertResponse = async () => {
+        const doubleCheck = await Swal.fire({
+            title: 'Atencion',
+            text: '¿Deseas eliminar esta llamada junto al cliente? una vez borrada no habra forma de ser recuperada',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: red[500],
+            confirmButtonColor: blue[500],
+            confirmButtonText: 'Si, deseo borrar la llamada y el cliente',
+            cancelButtonText: 'No, cancelar',
+            allowOutsideClick: false
+        });
+        return { confirm: doubleCheck.isConfirmed };
+    }
+
+    const deleteCall = async () => {
+        const { confirm } = await alertResponse();
+
+        if (!confirm) return;
+
         const url = `${baseUrl}/call/${id}`;
+        console.log({ url });
         const options = {
-            method: 'GET',
+            method: "DELETE",
             headers: {
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${authState.token}`,
-            }
+                'Authorization': `Bearer ${authState.token}`
+            },
         }
         try {
             const response = await fetch(url, options);
             switch (response.status) {
                 case 200:
-                    const { data } = await response.json();
-                    console.log({ data })
-                    setCall(data.call);
-                    setComments(data.comments);
+                    // console.log({ response: await response.json() })
+                    Swal.fire({
+                        title: 'Exito',
+                        text: 'Llamada y cliente eliminados',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        timerProgressBar: true
+                    })
+                    getCall();
                     break;
+
                 case 400:
                     Swal.fire({
                         title: 'Error',
-                        text: 'Ocurrio un error con su solicitud',
-                        icon: 'error'
-                    })
-                    break;
-                case 404:
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'No se encontro la llamada',
-                        icon: 'error'
+                        text: 'Ocurrio un error con los datos enviados',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        timerProgressBar: true
                     })
                     break;
                 case 500:
                     Swal.fire({
                         title: 'Error',
-                        text: 'Ocurrio un error interno en el servidor',
-                        icon: 'error'
+                        text: 'Error interno del servidor',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        timerProgressBar: true
                     })
                     break;
                 default:
                     Swal.fire({
                         title: 'Error',
-                        icon: 'error'
+                        text: 'No se logro conectar con el servidor',
+                        icon: 'error',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        timerProgressBar: true
                     })
                     break;
             }
         } catch (error) {
-            console.error({ error });
+            console.log(error)
             Swal.fire({
                 title: 'Error',
-                text: 'Ocurrio un error al conectar con el servidor',
+                text: 'No se logro conectar con el servidor',
                 icon: 'error',
+                timer: 2000,
+                showConfirmButton: false,
+                timerProgressBar: true
             })
-        } finally {
-            setLoading(false);
         }
     }
 
-    useEffect(() => {
-        getCall()
-    }, [])
     return (
         <>
             {loading && (
@@ -92,10 +117,12 @@ export const CallDetails: FC<Props> = ({ id }) => {
                     <Loading />
                 </Box>
             )}
-            {!loading && (
+            {!loading && call && (
 
                 <Box sx={styles.mainContent}>
-                    <DescripcionDeVista buttons={false} title={'Información de la llamada'} description={'En esta seccion podras inspeccionar mas a fondo una llamada en especifico y poder ver toda la información de la misma y del cliente respectivo  '}></DescripcionDeVista>
+                    <DescripcionDeVista buttons={false} title={'Información de la llamada'} description={'En esta seccion podras inspeccionar mas a fondo una llamada en especifico y poder ver toda la información de la misma y del cliente respectivo  '}>
+                        <IconButton onClick={deleteCall}><DeleteRounded /></IconButton>
+                    </DescripcionDeVista>
                     <Grid container spacing={1}>
                         {/* INFORMACION DEL CLIENTE */}
                         <ClientInfo call={call} />

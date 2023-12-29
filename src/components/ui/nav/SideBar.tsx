@@ -124,7 +124,7 @@ const useSideBarLinks = () => {
     }
     useEffect(() => {
         getLinksByLevel();
-    })
+    }, [authState.level])
     return { links }
 }
 

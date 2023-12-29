@@ -1,21 +1,23 @@
-import { CallRounded, GroupRounded, LockRounded } from '@mui/icons-material';
-import { Autocomplete, Box, CircularProgress, Divider, Grid, TextField } from '@mui/material';
+import { useContext, useState } from 'react';
+import GroupRounded from '@mui/icons-material/GroupRounded';
+import CallRounded from '@mui/icons-material/CallRounded';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
 import { green, blue } from '@mui/material/colors';
 import { Layout } from '../../../components/ui';
 import { DescripcionDeVista, NoContentFound } from '../../../components/ui/content';
 import { OptionsList } from '../../../components/ui/options';
-import { useGet } from '../../../http';
 import { ICall, Option } from '../../../interfaces';
-import { Dispatch, FC, useContext, useState } from 'react';
 import { baseUrl, countriesArray } from '../../../common';
 import { AuthContext } from '../../../context/auth';
 import { ButtonCustom, TextFieldCustom, TypographyCustom } from '../../../components/custom';
 import { NumericFormat } from 'react-number-format';
-import { Form, Formik, FormikState, FormikValues } from 'formik';
-import Swal from 'sweetalert2';
-import { ClientItem } from '../../../components/admin/clients';
-import { CallDetails, CallItem } from '../../../components/admin/calls';
+import { Form, Formik, FormikState } from 'formik';
+import { BlockedCall } from '../../../components/admin/calls';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const title = 'Llamadas';
 
@@ -32,6 +34,7 @@ export const CallsSearch = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [calls, setCalls] = useState<ICall[] | null>(null);
     const [countryCode, setCountryCode] = useState<string>('+58');
+
     const options: Option[] = [
         { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
         { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },
@@ -171,7 +174,7 @@ export const CallsSearch = () => {
                 )}
             </Formik>
             {calls &&
-                calls.length > 1 && calls.map((call) => (<BlockedCall {...{ call, setLoading }} />))
+                calls.length > 1 && calls.map((call) => (<BlockedCall key={call.id} {...{ call, setLoading }} />))
             }
             {loading && <Box sx={styles.loaderBox}><CircularProgress /></Box>}
             {!loading && blocked && !calls &&
@@ -185,88 +188,8 @@ export const CallsSearch = () => {
         </Layout>
     )
 }
-interface BlockedCallProps {
-    call: ICall;
-    setLoading: Dispatch<any>;
-}
-const BlockedCall: FC<BlockedCallProps> = ({ call, setLoading }) => {
-    const { authState } = useContext(AuthContext);
-    const [blocked, setBlocked] = useState<boolean>(true);
-    /**
-     * Funcion para registrar el comentario del usuario acerca de la llamada buscada
-     * @param values Valores del formulario Formik
-     * @param resetForm Funcion para reiniciar los datos de los campos del formulario 
-    */
-    const onSubmit = async (values: { feedback: string; }) => {
-        setLoading(true);
-        const url = `${baseUrl}/call/comment/${call?.id}`
-        const body = new URLSearchParams();
-        body.append('feedback', values.feedback);
-        const options = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${authState.token}`
-            },
-            body
-        }
-        try {
-            const response = await fetch(url, options);
-            switch (response.status) {
-                case 200:
-                    setBlocked(false);
-                    break;
-                case 400:
-                    break;
-                case 404:
-                    break;
-                case 500:
-                    break;
-                default:
-                    break;
-            }
-        } catch (error) {
 
-        } finally {
-            setLoading(false);
-        }
-    }
-    if (blocked) return (
-        <Box sx={{ mt: 2, }}>
-            <Box sx={{ width: '100%', borderRadius: 5, boxShadow: '0 2px 32px rgba(0,0,0,0.2)', padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', flexFlow: 'column wrap' }}>
-                <LockRounded />
-                <TypographyCustom sx={{ mb: 1 }}>{call.client?.phone}</TypographyCustom>
-                <TypographyCustom sx={{ mb: 1 }}>{call.client?.full_name ? call.client?.full_name : call.client?.first_name! + call.client?.lastname!}</TypographyCustom>
-                {/* <TypographyCustom sx={{ mb: 1 }}>Para ver el contenido de la llamada  escriba un comentario</TypographyCustom> */}
-                {/* <Formik
-                    initialValues={{ feedback: '' }}
-                    onSubmit={onSubmit}
-                >
-                    {({ values, handleChange, handleSubmit }) => (
-                        <Form onSubmit={handleSubmit} style={{ width: '50%' }}>
-                            <Grid container spacing={1} sx={{ width: '100%' }}>
-                                <Grid item xs={12}>
-                                    <TextFieldCustom multiline label='Comentario' name='feedback' value={values.feedback} onChange={handleChange} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <ButtonCustom type='submit'>Enviar</ButtonCustom>
-                                </Grid>
-                            </Grid>
-                        </Form>
-                    )}
-                </Formik> */}
-                <Box sx={{ width: { xs: '100%', md: '50%' } }}>
-                    <ButtonCustom onClick={() => setBlocked(false)}>Desbloquear</ButtonCustom>
-                </Box>
-            </Box>
-        </Box>
-    )
-    if (!blocked) return (<Box>
-        <Divider />
-        <CallDetails id={call.id} />
-    </Box>
-    )
-}
+
 
 /**
  * Estilos de los componentes MUI

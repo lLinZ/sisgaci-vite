@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, ReactNode, useContext } from 'react';
 import Box from '@mui/material/Box';
 import { darken, useTheme } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -14,9 +14,10 @@ type Props = {
     description: string;
     backPath?: string | To;
     buttons?: boolean;
+    children?: ReactNode;
 }
 
-export const DescripcionDeVista: FC<Props> = ({ description, title, backPath = undefined, buttons = true }) => {
+export const DescripcionDeVista: FC<Props> = ({ description, title, backPath = undefined, buttons = true, children = undefined }) => {
 
     const router = useNavigate();
     const theme = useTheme();
@@ -57,6 +58,7 @@ export const DescripcionDeVista: FC<Props> = ({ description, title, backPath = u
                     <ArrowBackRounded />
                 </IconButton>)
                 }
+                {children}
                 <TypographyCustom variant='h4' fontWeight={'bold'}>
                     {title}
                 </TypographyCustom>

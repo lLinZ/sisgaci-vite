@@ -7,3 +7,4 @@ export * from './CallDetails.tsx';
 export * from './CallDetailsDialog.tsx';
 export * from './InfoAvailable.tsx';
 export * from './AddNewComment.tsx';
+export * from './BlockedCall.tsx';
