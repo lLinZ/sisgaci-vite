@@ -1,17 +1,18 @@
-import { FC } from 'react'
-import { Divider, Grid, useTheme } from '@mui/material';
+import { FC, useContext } from 'react'
+import { Divider, Grid, darken, useTheme } from '@mui/material';
 import Box from '@mui/material/Box'
 import { grey } from '@mui/material/colors';
 import { Contacto, Empresa, Menu, Redes } from '.';
+import { AuthContext } from '../../../context/auth';
 
 // Functional Component
 export const Footer: FC = () => {
     // Tema
     const theme = useTheme();
-
+    const { authState } = useContext(AuthContext);
     // Estilos
     const styles = {
-        main: { fontFamily: 'Geologica', background: grey[900], width: '100%', height: '100%', m: 'auto', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', position: 'relative' },
+        main: { fontFamily: 'Geologica', background: darken(authState.color, 0.9), width: '100%', height: '100%', m: 'auto', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', position: 'relative' },
         redes: { zIndex: '900', width: '100%', m: 'auto', color: theme.palette.primary.contrastText, p: 2, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'space-between' }, alignItems: 'center' },
         grid: {
             zIndex: '900',

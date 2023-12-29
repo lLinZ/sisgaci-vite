@@ -35,7 +35,7 @@ export const Dashboard = () => {
                     Explora las diferentes opciones para interactuar con el sistema.
                 </TypographyCustom>
             </Box>
-            <OptionsList options={clientOptions} breakpoints={{ xs: 6, sm: 6, md: 6, lg: 6 }} />
+            <OptionsList options={clientOptions} breakpoints={{ xs: 6, sm: 4, md: 4, lg: 3 }} />
             <Box sx={styles.contentContainer}>
 
             </Box>

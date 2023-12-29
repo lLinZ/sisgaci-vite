@@ -14,7 +14,7 @@ import { OptionsList } from "../../../components/ui/options";
 import { Option } from "../../../interfaces";
 
 // Hooks
-import { useGet } from "../../../http";
+import { useGet } from "../../../hooks";
 
 const title = 'Llamadas';
 

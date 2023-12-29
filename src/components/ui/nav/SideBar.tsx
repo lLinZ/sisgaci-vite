@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { Drawer, Box, Toolbar, Grid, IconButton, Divider, Button } from "@mui/material";
+import { useState, useContext, ReactNode, ReactElement, useEffect } from "react";
+import { Drawer, Box, Toolbar, Grid, IconButton, Divider, Button, darken } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,16 +11,127 @@ import ProfileRounded from "@mui/icons-material/PersonRounded";
 
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../../context/auth";
+interface LinkProps {
+    text: string;
+    path: string;
+    icon: ReactElement;
+}
+const useSideBarLinks = () => {
+    const { authState } = useContext(AuthContext);
+    const [links, setLinks] = useState<LinkProps[]>([])
+    const getLinksByLevel = () => {
+        switch (authState.level) {
+            case 1:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Lvl 1', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 2:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Lvl 2', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 3:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Lvl 3', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 4:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Lvl 4', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 5:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Ejecutivo', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 6:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Gerente de Venta', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 7:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'SAC', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 8:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Protocolizacion', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 9:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Gerencia', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            case 10:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Master', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+            default:
+                setLinks(
+                    [
+                        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                        { text: 'Lvl unknown', path: '/perfil', icon: <ProfileRounded sx={{ color: darken(authState.color, 0.2) }} /> },
+                    ]
+                )
+                break;
+        }
+    }
+    useEffect(() => {
+        getLinksByLevel();
+    })
+    return { links }
+}
 
 export const SideBar = () => {
     const [open, setOpen] = useState<boolean>(false)
     const theme = useTheme();
-
-    const { authState } = useContext(AuthContext)
-    const links = [
-        { text: 'Dashboard', path: '/dashboard', icon: <DashboardRounded sx={{ color: authState.color }} /> },
-        { text: 'Perfil', path: '/perfil', icon: <ProfileRounded sx={{ color: authState.color }} /> },
-    ];
+    const { links } = useSideBarLinks();
     const router = useNavigate();
     const onClick = () => {
         setOpen(true);

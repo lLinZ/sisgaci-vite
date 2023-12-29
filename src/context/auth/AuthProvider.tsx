@@ -20,6 +20,7 @@ const initialState: IUser = {
     email: '',
     role_id: 0,
     status_id: 0,
+    level: 0,
     created_at: '',
     color: green[500],
     logged: false,
@@ -36,7 +37,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'XSRF-TOKEN':getCookieValue('XSRF-TOKEN'),
+                'XSRF-TOKEN': getCookieValue('XSRF-TOKEN'),
             }
         }
         try {
@@ -100,7 +101,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'XSRF-TOKEN':getCookieValue('XSRF-TOKEN'),
+                'XSRF-TOKEN': getCookieValue('XSRF-TOKEN'),
             },
             body
         }

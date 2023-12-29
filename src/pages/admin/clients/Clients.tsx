@@ -1,15 +1,16 @@
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import { blue, green } from "@mui/material/colors";
+
 import { Layout } from "../../../components/ui";
 import { DescripcionDeVista, BusquedaYResultado, NoContentFound } from "../../../components/ui/content";
 import { OptionsList } from "../../../components/ui/options";
-import { useGet } from "../../../http";
-
-import { Box, CircularProgress } from "@mui/material";
-import GroupRounded from "@mui/icons-material/GroupRounded";
-import BusinessCenterOutlined from "@mui/icons-material/BusinessCenterOutlined";
-import { blue, green } from "@mui/material/colors";
+import { useGet } from "../../../hooks";
 
 import { ClientList } from "../../../components/admin/clients/ClientList";
 import { Option } from "../../../interfaces";
+import PhoneRounded from "@mui/icons-material/PhoneRounded";
+import PhoneCallbackRounded from "@mui/icons-material/PhoneCallbackRounded";
 
 const title = 'Clientes'
 
@@ -20,8 +21,8 @@ export const Clients = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar departamento', path: '/admin/department/add', color: green[500], icon: <BusinessCenterOutlined /> },
-        { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },
+        { text: 'Llamadas', path: '/admin/calls/search', color: green[500], icon: <PhoneRounded /> },
+        { text: 'Agregar llamada', path: '/admin/call/add', color: blue[500], icon: <PhoneCallbackRounded /> },
     ]
     return (
         <Layout>

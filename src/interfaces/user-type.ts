@@ -13,12 +13,11 @@ export interface IUser {
     email: string;
     role_id: number;
     role?: IRole;
+    level: number;
     status_id: number;
     status?: IStatus;
     created_at: string;
     logged: boolean;
     color: string;
     token?: string;
-    crm_id?: string;
-    // full_name?: string;
 }

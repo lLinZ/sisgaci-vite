@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
-import { blue, green } from "@mui/material/colors";
+import { blue, green, pink } from "@mui/material/colors";
 import { useState, useContext, useEffect } from "react";
 import { baseUrl } from "../../../common";
 import { TypographyCustom } from "../../../components/custom";
@@ -23,7 +23,7 @@ export const Users = () => {
     const options: Option[] = [
         { text: 'Agregar Usuario', path: '/admin/users/add', color: green[500], icon: <PersonAddRoundedIcon /> },
         { text: 'Agregar Master', path: '/admin/register/master', color: blue[500], icon: <EngineeringRounded /> },
-        { text: 'Departamentos', path: '/admin/departments', color: blue[500], icon: <BusinessCenterOutlined /> },
+        { text: 'Departamentos', path: '/admin/departments', color: pink[500], icon: <BusinessCenterOutlined /> },
     ]
 
     /**
@@ -61,7 +61,7 @@ export const Users = () => {
     return (
         <Layout>
             <DescripcionDeVista title={title} description={'Consulta usuarios o navega a "Agregar Usuario" para ingresar uno nuevo en el sistema!'} />
-            <OptionsList options={options} breakpoints={{ xs: 12, sm: 6, md: 6, lg: 6 }} />
+            <OptionsList options={options} breakpoints={{ xs: 6, sm: 6, md: 4, lg: 4 }} />
             {users && (<BusquedaYResultado records={users} setRecords={setUsers} title={title} />)}
             {users && users.map((user: IUser) => (
                 <Box key={user.id} sx={styles.contentBox}>

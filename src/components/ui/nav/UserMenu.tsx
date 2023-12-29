@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Avatar, Box, Divider, IconButton, Menu, MenuItem } from '@mui/material';
+import { Avatar, Box, Divider, IconButton, Menu, MenuItem, darken } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import ExitToApp from '@mui/icons-material/ExitToAppRounded';
@@ -39,14 +39,14 @@ export const UserMenu = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={() => redirect('/perfil')}>
-                    <SettingsRounded sx={{ color: authState.color }} />
+                    <SettingsRounded sx={{ color: darken(authState.color, 0.5) }} />
                     <TypographyCustom variant='subtitle1'>
                         Configurar perfil
                     </TypographyCustom>
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => logout()}>
-                    <ExitToApp sx={{ color: authState.color }} />
+                    <ExitToApp sx={{ color: darken(authState.color, 0.5) }} />
                     <TypographyCustom variant='subtitle1'>
                         Cerrar sesion
                     </TypographyCustom>
@@ -64,13 +64,13 @@ const styles = {
         sx: {
             overflow: 'visible',
             width: 200,
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            borderRadius: 5,
+            p: 2,
+            filter: 'drop-shadow(0px 8px 8px rgba(100,100,100,0.1))',
             mt: 1.5,
             '& .MuiAvatar-root': {
                 width: 32,
                 height: 32,
-                ml: -0.5,
-                mr: 1,
             },
             '&:before': {
                 content: '""',
