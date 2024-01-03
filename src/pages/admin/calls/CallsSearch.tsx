@@ -74,6 +74,7 @@ export const CallsSearch = () => {
         }
         const phoneNumber = `${countryCode}${values.phone}`;
         const url = `${baseUrl}/call/phone/${phoneNumber}/${values.phone}`
+        console.log({ url })
         const options = {
             method: 'GET',
             headers: {
@@ -174,7 +175,7 @@ export const CallsSearch = () => {
                 )}
             </Formik>
             {calls &&
-                calls.length > 1 && calls.map((call) => (<BlockedCall key={call.id} {...{ call, setLoading }} />))
+                calls.length >= 1 && calls.map((call) => (<BlockedCall key={call.id} {...{ call, setLoading }} />))
             }
             {loading && <Box sx={styles.loaderBox}><CircularProgress /></Box>}
             {!loading && blocked && !calls &&
