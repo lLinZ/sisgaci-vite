@@ -8,7 +8,7 @@ import { RegisterUser } from './pages/admin/auth/RegisterUser';
 import { Clients } from './pages/admin/clients';
 import { CallsSearch, Calls, RegisterCall } from './pages/admin/calls';
 import { Departments, RegisterDepartment } from './pages/admin/departments';
-import { Acquisitions, CreateAcquisition } from './pages/admin/acquisitions';
+import { Acquisitions, CreateAcquisition, EditAcquisition } from './pages/admin/acquisitions';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { PropertiesConfiguration, PropertyTypes, CreatePropertyType } from './pages/admin/property_types';
 import { PropertyTransactionTypes, CreatePropertyTransactionType } from './pages/admin/property_transaction_types';
@@ -37,6 +37,7 @@ function App() {
           {/* Captaciones */}
           <Route path='/admin/acquisitions' element={<Acquisitions />} />
           <Route path='/admin/acquisitions/add' element={<CreateAcquisition />} />
+          <Route path='/admin/acquisition/edit/:id' element={<EditAcquisition />} />
 
           {/* Usuarios */}
           <Route path='/admin/users' element={<Users />} />

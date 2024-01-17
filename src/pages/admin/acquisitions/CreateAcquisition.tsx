@@ -189,7 +189,7 @@ export const CreateAcquisition = () => {
         const body = new FormData();
         body.append('web_description', values.web_description);
         body.append('name', values.name);
-        body.append('price', values.price.replaceAll(',', ''));
+        body.append('price', values.price.replaceAll(',', '').replaceAll('$', ''));
         body.append('short_address', values.short_address);
         body.append('property_type', values.property_type);
         body.append('property_transaction_type', values.property_transaction_type);
@@ -202,10 +202,12 @@ export const CreateAcquisition = () => {
             },
             body
         }
+        // console.log({ values })
         try {
             const response = await fetch(url, options);
             switch (response.status) {
                 case 200:
+                    // const { data } = await response.json();
                     Swal.fire({
                         title: 'Exito',
                         text: 'Se ha registrado el departamento',
