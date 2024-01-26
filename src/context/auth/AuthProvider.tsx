@@ -4,6 +4,7 @@ import { IRole, IUser } from '../../interfaces';
 import { baseUrl } from '../../common';
 import { green } from '@mui/material/colors';
 import { createCookie, deleteCookie, getCookieValue } from '../../helpers/functions';
+import { darken, lighten } from '@mui/material';
 
 type Props = {
     children: React.ReactNode;
@@ -23,6 +24,8 @@ const initialState: IUser = {
     level: 0,
     created_at: '',
     color: green[500],
+    darken: darken(green[500], 0.6),
+    lighten: lighten(green[500], 0.6),
     logged: false,
 }
 export const AuthProvider: FC<Props> = ({ children }) => {
@@ -45,7 +48,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             switch (response.status) {
                 case 200:
                     const { user } = await response.json();
-                    dispatch({ type: AUTH_ACTIONS.validate, payload: { ...user, token, logged: true } })
+                    dispatch({ type: AUTH_ACTIONS.validate, payload: { ...user, token, darken: darken(user.color, 0.6), lighten: lighten(user.color, 0.6), logged: true } })
                     const path = user.role.description === 'Master' ? '/admin/dashboard' : '/dashboard';
                     return { status: true, message: 'Sesion validada', user, path }
                 default:
@@ -112,7 +115,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
                 case 200:
                     const { status, user, message } = await response.json();
                     createCookie('token', user.token);
-                    dispatch({ type: AUTH_ACTIONS.login, payload: user });
+                    dispatch({ type: AUTH_ACTIONS.login, payload: { ...user, darken: darken(user.color, 0.6), lighten: lighten(user.color, 0.6) } });
                     return { status, user, message, role: user.role };
 
                 case 400:
@@ -182,7 +185,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
                 case 200:
                     const { status, message, user } = await response.json();
                     console.log({ status, message })
-                    dispatch({ type: USER_ACTIONS.edit, payload: { user } })
+                    dispatch({ type: USER_ACTIONS.edit, payload: { ...user, darken: darken(user.color, 0.6), lighten: lighten(user.color, 0.6) } })
                     return { status, message };
 
                 case 400:
@@ -225,7 +228,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
                 case 200:
                     const { status, message } = await response.json();
                     console.log({ status, message })
-                    dispatch({ type: USER_ACTIONS.color, payload: { color } })
+                    dispatch({ type: USER_ACTIONS.color, payload: { color, darken: darken(color, 0.6), lighten: lighten(color, 0.6), } })
                     return { status, message };
 
                 case 400:

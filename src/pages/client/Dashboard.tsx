@@ -14,10 +14,10 @@ import { Option } from '../../interfaces';
 export const Dashboard = () => {
     const context = useContext(AuthContext)
     const clientOptions: Option[] = [
-        { text: 'Pagos', icon: <RequestQuoteRounded />, color: green[400], path: '/pagos' },
-        { text: 'Unidades', icon: <MapsHomeWorkRounded />, color: blue[300], path: '/unidades' },
-        { text: 'Documentos', icon: <ArticleRounded />, color: orange[300], path: '/documentos' },
-        { text: 'Reportes', icon: <PictureAsPdfRounded />, color: red[400], path: '/reportes' },
+        { text: 'Pagos', icon: <RequestQuoteRounded />, path: '/pagos' },
+        { text: 'Unidades', icon: <MapsHomeWorkRounded />, path: '/unidades' },
+        { text: 'Documentos', icon: <ArticleRounded />, path: '/documentos' },
+        { text: 'Reportes', icon: <PictureAsPdfRounded />, path: '/reportes' },
     ]
 
     return (

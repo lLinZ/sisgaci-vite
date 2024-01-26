@@ -46,8 +46,8 @@ export const CreateAcquisition = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Listar captaciones', path: '/admin/acquisitions', color: green[500], icon: <ListRounded /> },
-        { text: 'Configuracion de propiedades', path: '/admin/properties', color: blue[500], icon: <SettingsRounded /> },
+        { text: 'Listar captaciones', path: '/admin/acquisitions', icon: <ListRounded /> },
+        { text: 'Configuracion de propiedades', path: '/admin/properties', icon: <SettingsRounded /> },
     ]
 
 

@@ -38,20 +38,19 @@ export const UserMenu = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={() => redirect('/perfil')}>
-                    <SettingsRounded sx={{ color: darken(authState.color, 0.5) }} />
-                    <TypographyCustom variant='subtitle1'>
-                        Configurar perfil
+                <MenuItem onClick={() => redirect('/perfil')} sx={{ textAlign: 'center' }}>
+                    <SettingsRounded sx={{ color: authState.darken }} />
+                    <TypographyCustom variant='subtitle1' sx={{ color: authState.darken, textAlign: 'center' }}>
+                        Mi perfil
                     </TypographyCustom>
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={() => logout()}>
-                    <ExitToApp sx={{ color: darken(authState.color, 0.5) }} />
-                    <TypographyCustom variant='subtitle1'>
+                    <ExitToApp color="error" />
+                    <TypographyCustom variant='subtitle1' color="error">
                         Cerrar sesion
                     </TypographyCustom>
                 </MenuItem>
-
             </Menu>
         </Box>
     )

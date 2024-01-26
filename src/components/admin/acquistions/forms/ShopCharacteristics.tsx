@@ -1,10 +1,9 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid, TextField, Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel, RadioGroup, FormHelperText, Radio, Box, MenuItem, Select } from '@mui/material';
+import { Grid, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Box, MenuItem, Select } from '@mui/material';
 import { FormikValues, Formik, Form } from 'formik';
 import { ChangeEvent, FC, useState } from 'react';
 import Swal from 'sweetalert2';
-import { ICaracteristicasLocalComercial } from '../../../../interfaces';
-import { getInitialValues } from '../../../../utils/functions';
+import { TextFieldCustom } from '../../../custom';
 
 interface Props {
     id: number;
@@ -152,16 +151,16 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                 <Form onSubmit={handleSubmit}>
                     <Grid container spacing={1} display="flex">
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de construccion" value={values.metraje_construccion} name="metraje_construccion" onChange={handleChange} error={errors.metraje_construccion && touched.metraje_construccion ? true : false} helperText={errors.metraje_construccion && touched.metraje_construccion ? errors.metraje_construccion : ''} />
+                            <TextFieldCustom type="number" fullWidth label="Metraje de construccion" value={values.metraje_construccion} name="metraje_construccion" onChange={handleChange} error={errors.metraje_construccion && touched.metraje_construccion ? true : false} helperText={errors.metraje_construccion && touched.metraje_construccion ? errors.metraje_construccion : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de terreno" value={values.metraje_terreno} name="metraje_terreno" onChange={handleChange} error={errors.metraje_terreno && touched.metraje_terreno ? true : false} helperText={errors.metraje_terreno && touched.metraje_terreno ? errors.metraje_terreno : ''} />
+                            <TextFieldCustom type="number" fullWidth label="Metraje de terreno" value={values.metraje_terreno} name="metraje_terreno" onChange={handleChange} error={errors.metraje_terreno && touched.metraje_terreno ? true : false} helperText={errors.metraje_terreno && touched.metraje_terreno ? errors.metraje_terreno : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de mezzanina" value={values.metraje_mezzanina} name="metraje_mezzanina" onChange={handleChange} error={errors.metraje_mezzanina && touched.metraje_mezzanina ? true : false} helperText={errors.metraje_mezzanina && touched.metraje_mezzanina ? errors.metraje_mezzanina : ''} />
+                            <TextFieldCustom type="number" fullWidth label="Metraje de mezzanina" value={values.metraje_mezzanina} name="metraje_mezzanina" onChange={handleChange} error={errors.metraje_mezzanina && touched.metraje_mezzanina ? true : false} helperText={errors.metraje_mezzanina && touched.metraje_mezzanina ? errors.metraje_mezzanina : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Cantidad de pisos" value={values.cantidad_pisos} name="cantidad_pisos" onChange={handleChange} error={errors.cantidad_pisos && touched.cantidad_pisos ? true : false} helperText={errors.cantidad_pisos && touched.cantidad_pisos ? errors.cantidad_pisos : ''} />
+                            <TextFieldCustom type="number" fullWidth label="Cantidad de pisos" value={values.cantidad_pisos} name="cantidad_pisos" onChange={handleChange} error={errors.cantidad_pisos && touched.cantidad_pisos ? true : false} helperText={errors.cantidad_pisos && touched.cantidad_pisos ? errors.cantidad_pisos : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -171,7 +170,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={"1"} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.planta_baja !== "0" && !!radios.planta_baja === true && (<TextField fullWidth multiline label="Descripcion" name="metraje_planta_baja" value={values.metraje_planta_baja} onChange={handleChange} />)}
+                            {radios.planta_baja !== "0" && !!radios.planta_baja === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="metraje_planta_baja" value={values.metraje_planta_baja} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -181,7 +180,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.oficina !== "0" && !!radios.oficina === true && (<TextField fullWidth multiline label="Descripcion" name="oficina" value={values.oficina} onChange={handleChange} />)}
+                            {radios.oficina !== "0" && !!radios.oficina === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="oficina" value={values.oficina} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -218,7 +217,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.habitaciones !== "0" && !!radios.habitaciones === true && (<TextField fullWidth multiline label="Cantidad" name="habitaciones" type="number" placeholder="Sólo números" value={values.habitaciones} onChange={handleChange} />)}
+                            {radios.habitaciones !== "0" && !!radios.habitaciones === true && (<TextFieldCustom fullWidth multiline label="Cantidad" name="habitaciones" type="number" placeholder="Sólo números" value={values.habitaciones} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -228,7 +227,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.banos !== "0" && !!radios.banos === true && (<TextField fullWidth multiline label="Cantidad" name="banos" type="number" placeholder="Sólo números" value={values.banos} onChange={handleChange} />)}
+                            {radios.banos !== "0" && !!radios.banos === true && (<TextFieldCustom fullWidth multiline label="Cantidad" name="banos" type="number" placeholder="Sólo números" value={values.banos} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -238,7 +237,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.aire_acondicionado !== "0" && !!radios.aire_acondicionado === true && (<TextField fullWidth multiline label="Descripcion" name="aire_acondicionado" value={values.aire_acondicionado} onChange={handleChange} />)}
+                            {radios.aire_acondicionado !== "0" && !!radios.aire_acondicionado === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="aire_acondicionado" value={values.aire_acondicionado} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -248,7 +247,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.vigilancia !== "0" && !!radios.vigilancia === true && (<TextField fullWidth multiline label="Descripcion" name="vigilancia" value={values.vigilancia} onChange={handleChange} />)}
+                            {radios.vigilancia !== "0" && !!radios.vigilancia === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="vigilancia" value={values.vigilancia} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -340,7 +339,7 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                                     <FormControlLabel value={1} control={<Radio />} label="Si" />
                                 </RadioGroup>
                             </FormControl>
-                            {radios.tanque !== "0" && !!radios.tanque === true && (<TextField fullWidth multiline label="Descripcion" name="tanque" value={values.tanque} onChange={handleChange} />)}
+                            {radios.tanque !== "0" && !!radios.tanque === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="tanque" value={values.tanque} onChange={handleChange} />)}
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <FormControl>
@@ -353,11 +352,11 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Tipo de puertas" value={values.tipo_de_puertas} name="tipo_de_puertas" onChange={handleChange} error={errors.tipo_de_puertas && touched.tipo_de_puertas ? true : false} helperText={errors.tipo_de_puertas && touched.tipo_de_puertas ? errors.tipo_de_puertas : ''} />
+                            <TextFieldCustom type="text" fullWidth label="Tipo de puertas" value={values.tipo_de_puertas} name="tipo_de_puertas" onChange={handleChange} error={errors.tipo_de_puertas && touched.tipo_de_puertas ? true : false} helperText={errors.tipo_de_puertas && touched.tipo_de_puertas ? errors.tipo_de_puertas : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
                             <Box sx={{ display: "flex", alignItems: "center", flexFlow: "row nowrap", width: "100%" }}>
-                                <TextField type="number" placeholder='Solo cantidad en numeros' fullWidth label="Antigüedad" value={values.antiguedad} name="antiguedad" onChange={handleChange} error={errors.antiguedad && touched.antiguedad ? true : false} helperText={errors.antiguedad && touched.antiguedad ? errors.antiguedad : ''} sx={{ width: "50%", "& fieldset": { borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRight: 0 } }} />
+                                <TextFieldCustom type="number" placeholder='Solo cantidad en numeros' fullWidth label="Antigüedad" value={values.antiguedad} name="antiguedad" onChange={handleChange} error={errors.antiguedad && touched.antiguedad ? true : false} helperText={errors.antiguedad && touched.antiguedad ? errors.antiguedad : ''} sx={{ width: "50%", "& fieldset": { borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRight: 0 } }} />
                                 <Select value={values.antiguedad_tipo ? values.antiguedad_tipo : 'años'} name='antiguedad_tipo' onChange={handleChange} defaultValue={'años'} sx={{ width: "50%", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}>
                                     <MenuItem value={'años'}>Años</MenuItem>
                                     <MenuItem value={'meses'}>Meses</MenuItem>
@@ -365,10 +364,10 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Tipo de piso" value={values.tipo_de_piso} name="tipo_de_piso" onChange={handleChange} error={errors.tipo_de_piso && touched.tipo_de_piso ? true : false} helperText={errors.tipo_de_piso && touched.tipo_de_piso ? errors.tipo_de_piso : ''} />
+                            <TextFieldCustom type="text" fullWidth label="Tipo de piso" value={values.tipo_de_piso} name="tipo_de_piso" onChange={handleChange} error={errors.tipo_de_piso && touched.tipo_de_piso ? true : false} helperText={errors.tipo_de_piso && touched.tipo_de_piso ? errors.tipo_de_piso : ''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Otros..." value={values.otros} name="otros" onChange={handleChange} error={errors.otros && touched.otros ? true : false} helperText={errors.otros && touched.otros ? errors.otros : ''} />
+                            <TextFieldCustom type="text" fullWidth label="Otros..." value={values.otros} name="otros" onChange={handleChange} error={errors.otros && touched.otros ? true : false} helperText={errors.otros && touched.otros ? errors.otros : ''} />
                         </Grid>
                         <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
                             <LoadingButton fullWidth type="button" loading={isSubmitting} color="primary" onClick={() => saveProgress(values)} disableElevation sx={{ p: 1.8, textTransform: "none" }}>Guardar progreso </LoadingButton>

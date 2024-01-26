@@ -16,19 +16,19 @@ export function ButtonCustom<C extends React.ElementType>(
         textTransform: 'none',
         p: 1.8,
         fontSize: 16,
-        background: rest.variant && rest.variant === 'outlined' ? 'transparent' : customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3),
-        borderColor: customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3),
-        color: rest.variant && rest.variant !== 'outlined' ? '#FFF' : customcolor ? darken(customcolor, 0.3) : darken(authState.color, 0.3),
+        background: rest.variant && rest.variant === 'outlined' ? 'transparent' : customcolor ? lighten(customcolor, 0.3) : authState.lighten,
+        borderColor: customcolor ? lighten(customcolor, 0.3) : authState.lighten,
+        color: rest.variant && rest.variant !== 'outlined' ? '#FFF' : customcolor ? darken(customcolor, 0.3) : authState.darken,
         '&:hover': {
             borderColor: customcolor ? customcolor : authState.color,
             background:
                 rest.variant && rest.variant === 'outlined'
-                    ? customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3)
+                    ? customcolor ? lighten(customcolor, 0.3) : authState.lighten
                     : customcolor ? customcolor : authState.color
             ,
             color: theme.palette.getContrastText(
                 rest.variant && rest.variant === 'outlined'
-                    ? customcolor ? lighten(customcolor, 0.3) : lighten(authState.color, 0.3)
+                    ? customcolor ? lighten(customcolor, 0.3) : authState.lighten
                     : customcolor ? customcolor : authState.color
             )
         }

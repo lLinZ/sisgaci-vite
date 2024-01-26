@@ -8,8 +8,10 @@ import { AuthContext } from "../../context/auth"
 import { Option } from '../../interfaces';
 import PeopleIcon from '@mui/icons-material/PeopleRounded';
 import BuildingRounded from '@mui/icons-material/BusinessCenterRounded';
-import CallRounded from "@mui/icons-material/CallRounded"
-import Diversity2Rounded from "@mui/icons-material/Diversity2Rounded"
+import CallRounded from "@mui/icons-material/CallRounded";
+import Diversity2Rounded from "@mui/icons-material/Diversity2Rounded";
+
+
 export const Dashboard = () => {
     const context = useContext(AuthContext)
 
@@ -17,10 +19,10 @@ export const Dashboard = () => {
      * Opciones del menu de navegacion superior
      */
     const clientOptions: Option[] = [
-        { text: 'Usuarios', icon: <PeopleIcon />, color: green[800], path: '/admin/users' },
-        { text: 'Clientes', icon: <Diversity2Rounded />, color: blue[800], path: '/admin/clients' },
-        { text: 'Llamadas', icon: <CallRounded />, color: pink[800], path: '/admin/calls/search' },
-        { text: 'Captaciones', icon: <BuildingRounded />, color: amber[800], path: '/admin/acquisitions' },
+        { text: 'Usuarios', icon: <PeopleIcon />, path: '/admin/users' },
+        { text: 'Clientes', icon: <Diversity2Rounded />, path: '/admin/clients' },
+        { text: 'Llamadas', icon: <CallRounded />, path: '/admin/calls/search' },
+        { text: 'Captaciones', icon: <BuildingRounded />, path: '/admin/acquisitions' },
     ]
     return (
         <Layout>

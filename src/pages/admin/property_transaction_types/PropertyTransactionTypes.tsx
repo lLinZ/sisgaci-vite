@@ -22,8 +22,8 @@ export const PropertyTransactionTypes = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar departamento', path: '/admin/department/add', color: green[500], icon: <BusinessCenterOutlined /> },
-        { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },
+        { text: 'Agregar departamento', path: '/admin/department/add', icon: <BusinessCenterOutlined /> },
+        { text: 'Usuarios', path: '/admin/users', icon: <GroupRounded /> },
     ]
 
     /**

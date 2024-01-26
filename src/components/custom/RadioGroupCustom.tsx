@@ -6,8 +6,8 @@ interface Props extends RadioProps {
   label: string;
   defaultvalue: string;
   options: RadioOption[];
-  error: boolean;
-  helpertext: string;
+  error?: boolean;
+  helpertext?: string;
   onChange: (e: ChangeEvent<any>) => void;
 }
 type RadioOption = {
@@ -28,6 +28,7 @@ export const RadioGroupCustom = (props: Props) => {
         defaultValue={props.defaultvalue}
         onChange={props.onChange}
         name={props.name}
+        sx={{ display: 'flex', flexFlow: 'row wrap' }}
       >
         {props.options.map((option) => (
           <FormControlLabel key={option.value} value={option.value} control={<Radio sx={{

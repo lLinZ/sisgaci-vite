@@ -36,8 +36,8 @@ export const CallsSearch = () => {
     const [countryCode, setCountryCode] = useState<string>('+58');
 
     const options: Option[] = [
-        { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
-        { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },
+        { text: 'Agregar llamada', path: '/admin/calls/add', icon: <CallRounded /> },
+        { text: 'Clientes', path: '/admin/clients', icon: <GroupRounded /> },
     ]
     /**
      * Hook para navegar con react router dom

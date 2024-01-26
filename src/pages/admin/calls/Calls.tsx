@@ -25,8 +25,8 @@ export const Calls = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar llamada', path: '/admin/calls/add', color: green[500], icon: <CallRounded /> },
-        { text: 'Clientes', path: '/admin/clients', color: blue[500], icon: <GroupRounded /> },
+        { text: 'Agregar llamada', path: '/admin/calls/add', icon: <CallRounded /> },
+        { text: 'Clientes', path: '/admin/clients', icon: <GroupRounded /> },
     ]
     return (
         <Layout>

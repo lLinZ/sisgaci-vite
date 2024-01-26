@@ -62,8 +62,8 @@ export const RegisterMaster = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar Usuario', path: '/admin/users/add', color: green[500], icon: <PersonAddRounded /> },
-        { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
+        { text: 'Agregar Usuario', path: '/admin/users/add', icon: <PersonAddRounded /> },
+        { text: 'Listar Usuarios', path: '/admin/users', icon: <ListRounded /> },
     ]
 
     /**

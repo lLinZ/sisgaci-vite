@@ -12,6 +12,10 @@ import { Acquisitions, CreateAcquisition, EditAcquisition } from './pages/admin/
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { PropertiesConfiguration, PropertyTypes, CreatePropertyType } from './pages/admin/property_types';
 import { PropertyTransactionTypes, CreatePropertyTransactionType } from './pages/admin/property_transaction_types';
+import { Owner } from './pages/admin/acquisitions/owners';
+import { Images } from './pages/admin/acquisitions/images';
+import { Information } from './pages/admin/acquisitions/information';
+import { Characteristics } from './pages/admin/acquisitions/characteristics';
 
 function App() {
 
@@ -38,6 +42,10 @@ function App() {
           <Route path='/admin/acquisitions' element={<Acquisitions />} />
           <Route path='/admin/acquisitions/add' element={<CreateAcquisition />} />
           <Route path='/admin/acquisition/edit/:id' element={<EditAcquisition />} />
+          <Route path='/admin/acquisition/edit/:id/characteristics' element={<Characteristics />} />
+          <Route path='/admin/acquisition/edit/:id/information' element={<Information />} />
+          <Route path='/admin/acquisition/edit/:id/images' element={<Images />} />
+          <Route path='/admin/acquisition/edit/:id/owner' element={<Owner />} />
 
           {/* Usuarios */}
           <Route path='/admin/users' element={<Users />} />

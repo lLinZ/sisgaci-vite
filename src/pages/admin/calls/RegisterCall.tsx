@@ -63,7 +63,7 @@ export const RegisterCall = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Listar llamadas', path: '/admin/calls/search', color: green[500], icon: <ListRounded /> },
+        { text: 'Listar llamadas', path: '/admin/calls/search', icon: <ListRounded /> },
     ]
 
     /**

@@ -19,5 +19,7 @@ export interface IUser {
     created_at: string;
     logged: boolean;
     color: string;
+    darken: string;
+    lighten: string;
     token?: string;
 }

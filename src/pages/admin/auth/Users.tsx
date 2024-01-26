@@ -21,9 +21,9 @@ export const Users = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar Usuario', path: '/admin/users/add', color: green[500], icon: <PersonAddRoundedIcon /> },
-        { text: 'Agregar Master', path: '/admin/register/master', color: blue[500], icon: <EngineeringRounded /> },
-        { text: 'Departamentos', path: '/admin/departments', color: pink[500], icon: <BusinessCenterOutlined /> },
+        { text: 'Agregar Usuario', path: '/admin/users/add', icon: <PersonAddRoundedIcon /> },
+        { text: 'Agregar Master', path: '/admin/register/master', icon: <EngineeringRounded /> },
+        { text: 'Departamentos', path: '/admin/departments', icon: <BusinessCenterOutlined /> },
     ]
 
     /**

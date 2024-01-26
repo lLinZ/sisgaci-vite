@@ -21,8 +21,8 @@ export const Acquisitions = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Agregar captacion', path: '/admin/acquisitions/add', color: green[500], icon: <BusinessCenterOutlined /> },
-        { text: 'Tipos de inmueble y transaccion', path: '/admin/property', color: blue[500], icon: <SettingsRounded /> },
+        { text: 'Agregar captacion', path: '/admin/acquisitions/add', icon: <BusinessCenterOutlined /> },
+        { text: 'Tipos de inmueble y transaccion', path: '/admin/property', icon: <SettingsRounded /> },
     ]
     return (
         <Layout>

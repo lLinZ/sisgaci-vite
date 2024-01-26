@@ -108,9 +108,9 @@ export const RegisterUser = () => {
         }
     }
     const options: Option[] = [
-        { text: 'Agregar Master', path: '/admin/register/master', color: green[500], icon: <PersonAddRounded /> },
-        { text: 'Listar Usuarios', path: '/admin/users', color: blue[500], icon: <ListRounded /> },
-        { text: 'Crear departamento', path: '/admin/department/add', color: pink[500], icon: <BusinessCenter /> },
+        { text: 'Agregar Master', path: '/admin/register/master', icon: <PersonAddRounded /> },
+        { text: 'Listar Usuarios', path: '/admin/users', icon: <ListRounded /> },
+        { text: 'Crear departamento', path: '/admin/department/add', icon: <BusinessCenter /> },
     ]
     const onSubmit = async (
         values: IValues,

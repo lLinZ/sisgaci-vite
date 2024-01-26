@@ -39,8 +39,8 @@ export const RegisterDepartment = () => {
      * Opciones del menu de navegacion superior
      */
     const options: Option[] = [
-        { text: 'Listar departamentos', path: '/admin/departments', color: green[500], icon: <ListRounded /> },
-        { text: 'Usuarios', path: '/admin/users', color: blue[500], icon: <GroupRounded /> },
+        { text: 'Listar departamentos', path: '/admin/departments', icon: <ListRounded /> },
+        { text: 'Usuarios', path: '/admin/users', icon: <GroupRounded /> },
     ]
 
     /**

@@ -1,3 +1,5 @@
+import { darken, lighten } from "@mui/material";
+
 export const AUTH_ACTIONS = {
     login: 'Auth - Login',
     logout: 'Auth - Logout',
@@ -30,7 +32,7 @@ export const authReducer: Reducer = (state, action) => {
             return { ...state, ...action.payload.user };
 
         case USER_ACTIONS.color:
-            return { ...state, color: action.payload.color };
+            return { ...state, color: action.payload.color, darken: action.payload.darken, lighten: action.payload.lighten };
 
         default:
             return state;

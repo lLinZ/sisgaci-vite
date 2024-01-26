@@ -121,7 +121,7 @@ export const AuthPage = () => {
                     <Form onSubmit={handleSubmit} style={styles.form}>
                         <Grid container display='flex' alignItems='center' justifyContent='center' flexDirection='column' spacing={3}>
                             <Grid item xs={12} md={12} sx={styles.item}>
-                                <TypographyCustom fontSize={24} fontWeight={'bold'} textAlign={'center'}>SISGACI</TypographyCustom>
+                                <TypographyCustom fontSize={24} fontWeight={'bold'} textAlign={'center'}>SYGIM</TypographyCustom>
                             </Grid>
                             <Grid item xs={12} md={12} sx={styles.item}>
                                 <TextFieldCustom fullWidth name='email' onChange={handleChange} label='Correo' />
