@@ -2,7 +2,9 @@ import { LoadingButton } from '@mui/lab';
 import { Grid, TextField, Checkbox, FormControl, FormGroup, FormControlLabel, FormLabel, RadioGroup, FormHelperText, Radio, Box, MenuItem, Select } from '@mui/material';
 import { FormikValues, Formik, Form } from 'formik';
 import { ChangeEvent, FC, useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 import Swal from 'sweetalert2';
+import { ButtonCustom, RadioGroupCustom, SelectCustom, TextFieldCustom } from '../../../custom';
 
 interface Props {
     id: number;
@@ -129,120 +131,136 @@ export const ShedCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                 < Form onSubmit={handleSubmit}>
                     <Grid container spacing={1} display="flex">
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de construccion" value={!!values.metraje_construccion ? values.metraje_construccion : ''} name="metraje_construccion" onChange={handleChange} error={errors.metraje_construccion && touched.metraje_construccion ? true : false} helperText={errors.metraje_construccion && touched.metraje_construccion ? errors.metraje_construccion : ''} />
+                            <NumericFormat
+                                label='Metraje de construccion'
+                                name="construction_meters"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.construction_meters}
+                                decimalScale={2}
+                                decimalSeparator='.'
+                                thousandSeparator=','
+                                allowLeadingZeros={false}
+                                error={errors.construction_meters && touched.construction_meters ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de terreno" value={!!values.metraje_terreno ? values.metraje_terreno : ''} name="metraje_terreno" onChange={handleChange} error={errors.metraje_terreno && touched.metraje_terreno ? true : false} helperText={errors.metraje_terreno && touched.metraje_terreno ? errors.metraje_terreno : ''} />
+                            <NumericFormat
+                                label='Metraje de terreno'
+                                name="land_meters"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.land_meters}
+                                decimalScale={2}
+                                decimalSeparator='.'
+                                thousandSeparator=','
+                                allowLeadingZeros={false}
+                                error={errors.land_meters && touched.land_meters ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Metraje de mezzanina" value={!!values.metraje_mezzanina ? values.metraje_mezzanina : ''} name="metraje_mezzanina" onChange={handleChange} error={errors.metraje_mezzanina && touched.metraje_mezzanina ? true : false} helperText={errors.metraje_mezzanina && touched.metraje_mezzanina ? errors.metraje_mezzanina : ''} />
+                            <NumericFormat
+                                label='Metraje de mezzanina'
+                                name="mezzanine_meters"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.mezzanine_meters}
+                                decimalScale={2}
+                                decimalSeparator='.'
+                                thousandSeparator=','
+                                allowLeadingZeros={false}
+                                error={errors.mezzanine_meters && touched.mezzanine_meters ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="number" fullWidth label="Cantidad de pisos" value={!!values.cantidad_pisos ? values.cantidad_pisos : ''} name="cantidad_pisos" onChange={handleChange} error={errors.cantidad_pisos && touched.cantidad_pisos ? true : false} helperText={errors.cantidad_pisos && touched.cantidad_pisos ? errors.cantidad_pisos : ''} />
+                            <NumericFormat
+                                label='Cantidad de pisos'
+                                name="floor_quantity"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.floor_quantity}
+                                decimalScale={2}
+                                decimalSeparator='.'
+                                thousandSeparator=','
+                                allowLeadingZeros={false}
+                                error={errors.floor_quantity && touched.floor_quantity ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Planta baja</FormLabel>
-                                <RadioGroup row aria-label="pb-radio-button" name="planta_baja" value={radios.planta_baja} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={"0"} control={<Radio />} label="No" />
-                                    <FormControlLabel value={"1"} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.planta_baja !== "0" && !!radios.planta_baja === true && (<TextField fullWidth multiline label="Descripcion" name="metraje_planta_baja" value={values.metraje_planta_baja} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Planta baja' value={values.ground_floor} name='ground_floor' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Oficina</FormLabel>
-                                <RadioGroup row aria-label="oficina-radio-button" name="oficina" value={radios.oficina} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.oficina !== "0" && !!radios.oficina === true && (<TextField fullWidth multiline label="Descripcion" name="oficina" value={values.oficina} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Oficina' value={values.office} name='office' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Telefono</FormLabel>
-                                <RadioGroup row aria-label="telefono-radio-button" name="telefono" value={!!values.telefono ? values.telefono : ''} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Telefono' value={values.phone} name='phone' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Baños</FormLabel>
-                                <RadioGroup row aria-label="banos-radio-button" name="banos" value={radios.banos} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.banos !== "0" && !!radios.banos === true && (<TextField fullWidth multiline label="Cantidad" name="banos" type="number" placeholder="Sólo números" value={values.banos} onChange={handleChange} />)}
+                            <NumericFormat
+                                label='Baños'
+                                name="bathrooms"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.bathrooms}
+                                allowLeadingZeros={false}
+                                error={errors.bathrooms && touched.bathrooms ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>A/A</FormLabel>
-                                <RadioGroup row aria-label="aa-radio-button" name="aire_acondicionado" value={radios.aire_acondicionado} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.aire_acondicionado !== "0" && !!radios.aire_acondicionado === true && (<TextField fullWidth multiline label="Descripcion" name="aire_acondicionado" value={values.aire_acondicionado} onChange={handleChange} />)}
+                            <RadioGroupCustom label='A/A' value={values.air_conditioning} name='air_conditioning' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Vigilancia</FormLabel>
-                                <RadioGroup row aria-label="vigilancia-radio-button" name="vigilancia" value={radios.vigilancia} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.vigilancia !== "0" && !!radios.vigilancia === true && (<TextField fullWidth multiline label="Descripcion" name="vigilancia" value={values.vigilancia} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Vigilancia' value={values.surveillance} name='surveillance' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Tanque</FormLabel>
-                                <RadioGroup row aria-label="tanque-radio-button" name="tanque" value={radios.tanque} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.tanque !== "0" && !!radios.tanque === true && (<TextField fullWidth multiline label="Descripcion" name="tanque" value={values.tanque} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Tanque' value={values.water_tank} name='water_tank' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Tipo de corriente</FormLabel>
-                                <RadioGroup row aria-label="tipocorriente-radio-button" name="tipo_corriente" value={!!values.tipo_corriente ? values.tipo_corriente : ''} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={"110"} control={<Radio />} label="110v" />
-                                    <FormControlLabel value={"220"} control={<Radio />} label="220v" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Tipo de corriente' value={values.water_tank} name='water_tank' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Tipo de puertas" value={!!values.tipo_de_puertas ? values.tipo_de_puertas : ''} name="tipo_de_puertas" onChange={handleChange} error={errors.tipo_de_puertas && touched.tipo_de_puertas ? true : false} helperText={errors.tipo_de_puertas && touched.tipo_de_puertas ? errors.tipo_de_puertas : ''} />
+                            <TextFieldCustom label="Tipo de puertas" value={values.doors_type} name="doors_type" onChange={handleChange} error={errors.doors_type && touched.doors_type ? true : false} helperText={''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
-                            <Box sx={{ display: "flex", alignItems: "center", flexFlow: "row nowrap", width: "100%" }}>
-                                <TextField type="number" placeholder='Solo cantidad en numeros' fullWidth label="Antigüedad" value={values.antiguedad} name="antiguedad" onChange={handleChange} error={errors.antiguedad && touched.antiguedad ? true : false} helperText={errors.antiguedad && touched.antiguedad ? errors.antiguedad : ''} sx={{ width: "50%", "& fieldset": { borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRight: 0 } }} />
-                                <Select value={values.antiguedad_tipo ? values.antiguedad_tipo : 'años'} name='antiguedad_tipo' onChange={handleChange} defaultValue={'años'} sx={{ width: "50%", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}>
-                                    <MenuItem value={'años'}>Años</MenuItem>
-                                    <MenuItem value={'meses'}>Meses</MenuItem>
-                                </Select>
-                            </Box>
+                            <SelectCustom label='Tipo de antigüedad' value={values.antiquity_type} name="antiquity_type" onChange={handleChange} helpertext={''}>
+                                <MenuItem value='1'>Meses</MenuItem>
+                                <MenuItem value='2'>Años</MenuItem>
+                            </SelectCustom>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
+                            <NumericFormat
+                                label='Antigüedad'
+                                name="antiquity"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.antiquity}
+                                allowLeadingZeros={false}
+                                error={errors.antiquity && touched.antiquity ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Tipo de piso" value={!!values.tipo_de_piso ? values.tipo_de_piso : ''} name="tipo_de_piso" onChange={handleChange} error={errors.tipo_de_piso && touched.tipo_de_piso ? true : false} helperText={errors.tipo_de_piso && touched.tipo_de_piso ? errors.tipo_de_piso : ''} />
+                            <TextFieldCustom label="Tipo de piso" value={values.floor_type} name="floor_type" onChange={handleChange} error={errors.floor_type && touched.floor_type ? true : false} helperText={''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Tipo de techo" value={!!values.tipo_de_techo ? values.tipo_de_techo : ''} name="tipo_de_techo" onChange={handleChange} error={errors.tipo_de_techo && touched.tipo_de_techo ? true : false} helperText={errors.tipo_de_techo && touched.tipo_de_techo ? errors.tipo_de_techo : ''} />
+                            <TextFieldCustom label="Tipo de techo" value={values.roof_type} name="roof_type" onChange={handleChange} error={errors.roof_type && touched.roof_type ? true : false} helperText={''} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField type="text" fullWidth label="Otros..." value={!!values.otros ? values.otros : ''} name="otros" onChange={handleChange} error={errors.otros && touched.otros ? true : false} helperText={errors.otros && touched.otros ? errors.otros : ''} />
+                            <TextFieldCustom label="Otros" value={values.others} name="others" onChange={handleChange} error={errors.others && touched.others ? true : false} helperText={''} />
                         </Grid>
                         <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
-                            <LoadingButton fullWidth type="button" loading={isSubmitting} color="primary" onClick={() => saveProgress(values)} disableElevation sx={{ p: 1.8, textTransform: "none" }}>Guardar progreso </LoadingButton>
-                            <LoadingButton type="submit" loading={isSubmitting} fullWidth disableElevation color="success" variant="contained" sx={{ p: 1.8, textTransform: "none" }}>Registrar</LoadingButton>
+                            <ButtonCustom type='submit'>Registrar datos</ButtonCustom>
                         </Grid>
                     </Grid>
                 </Form>

@@ -3,7 +3,8 @@ import { Grid, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Box,
 import { FormikValues, Formik, Form } from 'formik';
 import { ChangeEvent, FC, useState } from 'react';
 import Swal from 'sweetalert2';
-import { TextFieldCustom } from '../../../custom';
+import { ButtonCustom, RadioGroupCustom, SelectCustom, TextFieldCustom } from '../../../custom';
+import { NumericFormat } from 'react-number-format';
 
 interface Props {
     id: number;
@@ -151,227 +152,127 @@ export const ShopCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                 <Form onSubmit={handleSubmit}>
                     <Grid container spacing={1} display="flex">
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="number" fullWidth label="Metraje de construccion" value={values.metraje_construccion} name="metraje_construccion" onChange={handleChange} error={errors.metraje_construccion && touched.metraje_construccion ? true : false} helperText={errors.metraje_construccion && touched.metraje_construccion ? errors.metraje_construccion : ''} />
+                            <TextFieldCustom label="Metraje de construccion" value={values.construction_meters} name="construction_meters" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="number" fullWidth label="Metraje de terreno" value={values.metraje_terreno} name="metraje_terreno" onChange={handleChange} error={errors.metraje_terreno && touched.metraje_terreno ? true : false} helperText={errors.metraje_terreno && touched.metraje_terreno ? errors.metraje_terreno : ''} />
+                            <TextFieldCustom label="Metraje de terreno" value={values.land_meters} name="land_meters" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="number" fullWidth label="Metraje de mezzanina" value={values.metraje_mezzanina} name="metraje_mezzanina" onChange={handleChange} error={errors.metraje_mezzanina && touched.metraje_mezzanina ? true : false} helperText={errors.metraje_mezzanina && touched.metraje_mezzanina ? errors.metraje_mezzanina : ''} />
+                            <TextFieldCustom label="Metraje de mezzanina" value={values.mezzanine_meters} name="mezzanine_meters" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="number" fullWidth label="Cantidad de pisos" value={values.cantidad_pisos} name="cantidad_pisos" onChange={handleChange} error={errors.cantidad_pisos && touched.cantidad_pisos ? true : false} helperText={errors.cantidad_pisos && touched.cantidad_pisos ? errors.cantidad_pisos : ''} />
+                            <TextFieldCustom label="Cantidad de pisos" value={values.floor_quantity} name="floor_quantity" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Planta baja</FormLabel>
-                                <RadioGroup row aria-label="pb-radio-button" name="planta_baja" value={radios.planta_baja} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={"0"} control={<Radio />} label="No" />
-                                    <FormControlLabel value={"1"} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.planta_baja !== "0" && !!radios.planta_baja === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="metraje_planta_baja" value={values.metraje_planta_baja} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Planta baja' value={values.ground_floor} name='ground_floor' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Oficina</FormLabel>
-                                <RadioGroup row aria-label="oficina-radio-button" name="oficina" value={radios.oficina} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.oficina !== "0" && !!radios.oficina === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="oficina" value={values.oficina} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Oficina' value={values.office} name='office' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Divisiones</FormLabel>
-                                <RadioGroup row aria-label="divisiones-radio-button" name="divisiones" value={values.divisiones} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Divisiones' value={values.divisions} name='divisions' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Telefono</FormLabel>
-                                <RadioGroup row aria-label="telefono-radio-button" name="telefono" value={values.telefono} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Telefono' value={values.phone} name='phone' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Lavandero</FormLabel>
-                                <RadioGroup row aria-label="lavandero-radio-button" name="lavandero" value={values.lavandero} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Lavandero' value={values.laundry} name='laundry' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Habitaciones</FormLabel>
-                                <RadioGroup row aria-label="habitaciones-radio-button" name="habitaciones" value={radios.habitaciones} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.habitaciones !== "0" && !!radios.habitaciones === true && (<TextFieldCustom fullWidth multiline label="Cantidad" name="habitaciones" type="number" placeholder="Sólo números" value={values.habitaciones} onChange={handleChange} />)}
+                            <NumericFormat
+                                label='Habitaciones'
+                                name="bedrooms"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.bedrooms}
+                                allowLeadingZeros={false}
+                                error={errors.bedrooms && touched.bedrooms ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Baños</FormLabel>
-                                <RadioGroup row aria-label="banos-radio-button" name="banos" value={radios.banos} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.banos !== "0" && !!radios.banos === true && (<TextFieldCustom fullWidth multiline label="Cantidad" name="banos" type="number" placeholder="Sólo números" value={values.banos} onChange={handleChange} />)}
+                            <NumericFormat
+                                label='Baños'
+                                name="bathrooms"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.bathrooms}
+                                allowLeadingZeros={false}
+                                error={errors.bathrooms && touched.bathrooms ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>A/A</FormLabel>
-                                <RadioGroup row aria-label="aa-radio-button" name="aire_acondicionado" value={radios.aire_acondicionado} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.aire_acondicionado !== "0" && !!radios.aire_acondicionado === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="aire_acondicionado" value={values.aire_acondicionado} onChange={handleChange} />)}
+                            <RadioGroupCustom label='A/A' value={values.air_conditioning} name='air_conditioning' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Vigilancia</FormLabel>
-                                <RadioGroup row aria-label="vigilancia-radio-button" name="vigilancia" value={radios.vigilancia} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.vigilancia !== "0" && !!radios.vigilancia === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="vigilancia" value={values.vigilancia} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Vigilancia' value={values.surveillance} name='surveillance' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Sala de estar</FormLabel>
-                                <RadioGroup row aria-label="salaestar-radio-button" name="sala_estar" value={values.sala_estar} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Sala de estar' value={values.living_room} name='living_room' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Balcón</FormLabel>
-                                <RadioGroup row aria-label="balcon-radio-button" name="balcon" value={values.balcon} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Balcon' value={values.balcony} name='balcony' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Hall</FormLabel>
-                                <RadioGroup row aria-label="hall-radio-button" name="hall" value={values.hall} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Hall' value={values.hall} name='hall' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Tasca</FormLabel>
-                                <RadioGroup row aria-label="tasca-radio-button" name="tasca" value={values.tasca} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Tasca' value={values.tavern} name='tavern' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Pantry</FormLabel>
-                                <RadioGroup row aria-label="pantry-radio-button" name="pantry" value={values.pantry} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Pantry' value={values.pantry} name='pantry' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Estudio</FormLabel>
-                                <RadioGroup row aria-label="estudio-radio-button" name="estudio" value={values.estudio} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Estudio' value={values.studio} name='studio' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Terraza</FormLabel>
-                                <RadioGroup row aria-label="terraza-radio-button" name="terraza" value={values.terraza} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Terraza' value={values.terrace} name='terrace' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Lavandero</FormLabel>
-                                <RadioGroup row aria-label="lavandero-radio-button" name="lavandero" value={values.lavandero} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Lavandero' value={values.laundry} name='laundry' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Piscina</FormLabel>
-                                <RadioGroup row aria-label="piscina-radio-button" name="piscina" value={values.piscina} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Tanque</FormLabel>
-                                <RadioGroup row aria-label="tanque-radio-button" name="tanque" value={radios.tanque} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.tanque !== "0" && !!radios.tanque === true && (<TextFieldCustom fullWidth multiline label="Descripcion" name="tanque" value={values.tanque} onChange={handleChange} />)}
+                            <RadioGroupCustom label='Piscina' value={values.pool} name='pool' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Tipo de corriente</FormLabel>
-                                <RadioGroup row aria-label="tipocorriente-radio-button" name="tipo_corriente" value={values.tipo_corriente} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={"110"} control={<Radio />} label="110v" />
-                                    <FormControlLabel value={"220"} control={<Radio />} label="220v" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Tanque' value={values.water_tank} name='water_tank' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="text" fullWidth label="Tipo de puertas" value={values.tipo_de_puertas} name="tipo_de_puertas" onChange={handleChange} error={errors.tipo_de_puertas && touched.tipo_de_puertas ? true : false} helperText={errors.tipo_de_puertas && touched.tipo_de_puertas ? errors.tipo_de_puertas : ''} />
+                            <RadioGroupCustom label='Tipo de corriente' value={values.electric_current_type} name='electric_current_type' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
+                            <TextFieldCustom label="Tipo de puertas" value={values.doors_type} name="doors_type" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
-                            <Box sx={{ display: "flex", alignItems: "center", flexFlow: "row nowrap", width: "100%" }}>
-                                <TextFieldCustom type="number" placeholder='Solo cantidad en numeros' fullWidth label="Antigüedad" value={values.antiguedad} name="antiguedad" onChange={handleChange} error={errors.antiguedad && touched.antiguedad ? true : false} helperText={errors.antiguedad && touched.antiguedad ? errors.antiguedad : ''} sx={{ width: "50%", "& fieldset": { borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRight: 0 } }} />
-                                <Select value={values.antiguedad_tipo ? values.antiguedad_tipo : 'años'} name='antiguedad_tipo' onChange={handleChange} defaultValue={'años'} sx={{ width: "50%", borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}>
-                                    <MenuItem value={'años'}>Años</MenuItem>
-                                    <MenuItem value={'meses'}>Meses</MenuItem>
-                                </Select>
-                            </Box>
+                            <SelectCustom label='Tipo de antigüedad' value={values.antiquity_type} name="antiquity_type" onChange={handleChange} helpertext={''}>
+                                <MenuItem value='1'>Meses</MenuItem>
+                                <MenuItem value='2'>Años</MenuItem>
+                            </SelectCustom>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
+                            <NumericFormat
+                                label='Antigüedad'
+                                name="antiquity"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.antiquity}
+                                allowLeadingZeros={false}
+                                error={errors.antiquity && touched.antiquity ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="text" fullWidth label="Tipo de piso" value={values.tipo_de_piso} name="tipo_de_piso" onChange={handleChange} error={errors.tipo_de_piso && touched.tipo_de_piso ? true : false} helperText={errors.tipo_de_piso && touched.tipo_de_piso ? errors.tipo_de_piso : ''} />
+                            <TextFieldCustom label="Tipo de piso" value={values.floor_type} name="floor_type" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom type="text" fullWidth label="Otros..." value={values.otros} name="otros" onChange={handleChange} error={errors.otros && touched.otros ? true : false} helperText={errors.otros && touched.otros ? errors.otros : ''} />
+                            <TextFieldCustom label="Otros..." value={values.others} name="others" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
-                            <LoadingButton fullWidth type="button" loading={isSubmitting} color="primary" onClick={() => saveProgress(values)} disableElevation sx={{ p: 1.8, textTransform: "none" }}>Guardar progreso </LoadingButton>
-                            <LoadingButton type="submit" loading={isSubmitting} fullWidth disableElevation color="success" variant="contained" sx={{ p: 1.8, textTransform: "none" }}>Registrar</LoadingButton>
+                            <ButtonCustom type="submit">Registrar datos</ButtonCustom>
                         </Grid>
                     </Grid>
                 </Form>

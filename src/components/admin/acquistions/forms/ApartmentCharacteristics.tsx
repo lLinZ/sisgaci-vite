@@ -100,13 +100,47 @@ export const ApartmentCharacteristics: FC<Props> = ({ id, characteristics }) => 
                 <Form onSubmit={handleSubmit}>
                     <Grid container spacing={2} display="flex">
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
-                            <TextFieldCustom label="Metraje de construccion" value={values.construction_meters} name="construction_meters" onChange={handleChange} />
+                            <NumericFormat
+                                label='Metraje de construccion'
+                                name="construction_meters"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.construction_meters}
+                                decimalScale={2}
+                                decimalSeparator='.'
+                                thousandSeparator=','
+                                allowLeadingZeros={false}
+                                fixedDecimalScale={true}
+                                error={errors.construction_meters && touched.construction_meters ? true : false}
+                                helperText={errors.construction_meters && touched.construction_meters ? errors.construction_meters : ''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
-                            <TextFieldCustom label="Numero de piso" value={values.floor_number} name="floor_number" onChange={handleChange} />
+                            <NumericFormat
+                                label='Piso numero #'
+                                name="floor_number"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.floor_number}
+                                allowLeadingZeros={false}
+                                error={errors.floor_number && touched.floor_number ? true : false}
+                                helperText={errors.floor_number && touched.floor_number ? errors.floor_number : ''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
-                            <TextFieldCustom label="Cantidad de pisos" value={values.floor_quantity} name="floor_quantity" onChange={handleChange} />
+                            <NumericFormat
+                                label='Cantidad de pisos'
+                                name="floor_quantity"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.floor_quantity}
+                                allowLeadingZeros={false}
+                                error={errors.floor_quantity && touched.floor_quantity ? true : false}
+                                helperText={errors.floor_quantity && touched.floor_quantity ? errors.floor_quantity : ''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="start" justifyContent="center" flexDirection="column">
                             <RadioGroupCustom label='Planta baja' value={values.ground_floor} name='ground_floor' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />

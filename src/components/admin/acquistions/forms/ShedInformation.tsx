@@ -5,6 +5,7 @@ import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Text
 import { Form, Formik, FormikValues } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import Swal from 'sweetalert2';
+import { TextFieldCustom } from '../../../custom';
 
 interface Props {
     id: number;
@@ -126,9 +127,10 @@ export const ShedInformation: FC<Props> = ({ id, informacion }) => {
                 <Form onSubmit={handleSubmit}>
                     <Grid container display="flex" spacing={1}>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField fullWidth value={values.urbanizacion} name="urbanizacion" label="Urbanizacion" onChange={handleChange} />
+                            <RadioGroupCustom label='Urbanizacion' value={values.urbanization} name='urbanization' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
+                            <TextFieldCustom label='Zona' value={values.zone} name='zone' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                             <TextField fullWidth value={values.zona} name="zona" label="Zona" onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
