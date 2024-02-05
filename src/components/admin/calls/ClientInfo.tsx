@@ -15,6 +15,7 @@ export const ClientInfo = ({ call }: { call: ICall | null }) => {
         <InfoAvailable call={call} _key={'lastname'} title='Primer Apellido' />
         <InfoAvailable call={call} _key={'second_lastname'} title='Segundo Apellido' />
         <InfoAvailable call={call} _key={'phone'} title='Telefono' />
+        <InfoAvailable call={call} _key={'document'} title='Cedula' />
         <InfoAvailable call={call} _key={'email'} title='Correo' />
         <InfoAvailable call={call} _key={'gender'} title='Genero' />
         <InfoAvailable call={call} _key={'marital_status'} title='Estado Civil' />

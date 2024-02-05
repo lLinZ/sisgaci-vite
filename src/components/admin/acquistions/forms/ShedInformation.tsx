@@ -5,7 +5,7 @@ import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Text
 import { Form, Formik, FormikValues } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import Swal from 'sweetalert2';
-import { TextFieldCustom } from '../../../custom';
+import { ButtonCustom, RadioGroupCustom, TextFieldCustom } from '../../../custom';
 
 interface Props {
     id: number;
@@ -130,39 +130,25 @@ export const ShedInformation: FC<Props> = ({ id, informacion }) => {
                             <RadioGroupCustom label='Urbanizacion' value={values.urbanization} name='urbanization' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextFieldCustom label='Zona' value={values.zone} name='zone' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
-                            <TextField fullWidth value={values.zona} name="zona" label="Zona" onChange={handleChange} />
+                            <TextFieldCustom label='Zona' value={values.zone} name='zone' onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField fullWidth value={values.galpon} name="galpon" label="Galpon" onChange={handleChange} />
+                            <TextFieldCustom label='Galpon' value={values.shed} name='shed' onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField fullWidth value={values.direccion} name="direccion" label="Direccion" onChange={handleChange} />
+                            <TextFieldCustom label='Direccion' value={values.address} name='address' onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <TextField fullWidth value={values.punto_de_referencia} name="punto_de_referencia" label="Punto de referencia" onChange={handleChange} />
+                            <TextFieldCustom label='Punto de referencia' value={values.landmark} name='landmark' onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Conjunto residencial</FormLabel>
-                                <RadioGroup row aria-label="conjunto_residencial-radio-button" name="conjunto_residencial" value={values.conjunto_residencial ? values.conjunto_residencial : 0} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Conjunto residencial' value={values.residential} name='residential' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Calle con vigilancia</FormLabel>
-                                <RadioGroup row aria-label="calle_con_vigilancia-radio-button" name="calle_con_vigilancia" value={values.calle_con_vigilancia ? values.calle_con_vigilancia : 0} onChange={handleChange} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
+                            <RadioGroupCustom label='Calle con vigilancia' value={values.surveilled_street} name='surveilled_street' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
-                            <LoadingButton fullWidth type="button" loading={isSubmitting} onClick={() => saveProgress(values)} disableElevation sx={{ textTransform: "none" }}>Guardar progreso</LoadingButton>
-                            <LoadingButton fullWidth type="submit" loading={isSubmitting} variant="contained" color="success" disableElevation>Registrar</LoadingButton>
+                            <ButtonCustom type="submit">Registrar datos</ButtonCustom>
                         </Grid>
                     </Grid>
                 </Form>

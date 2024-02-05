@@ -210,27 +210,33 @@ export const QuintCharacteristics: FC<Props> = ({ id, caracteristicas }) => {
                             <RadioGroupCustom label='Lavandero' value={values.laundry} name='laundry' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Habitaciones</FormLabel>
-                                <RadioGroup row aria-label="habitaciones-radio-button" name="habitaciones" value={radios.habitaciones} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.habitaciones !== "0" && !!radios.habitaciones === true && (<TextField fullWidth multiline label="Cantidad" name="habitaciones" type="number" placeholder="Sólo números" value={values.habitaciones} onChange={handleChange} />)}
+                            <NumericFormat
+                                label='Habitaciones'
+                                name="bedrooms"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.bedrooms}
+                                allowLeadingZeros={false}
+                                error={errors.bedrooms && touched.bedrooms ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <RadioGroupCustom label='Habitacion de servicio' value={values.service_room} name='service_room' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
-                            <FormControl>
-                                <FormLabel>Baños</FormLabel>
-                                <RadioGroup row aria-label="banos-radio-button" name="banos" value={radios.banos} onChange={changeRadio} defaultValue={0}>
-                                    <FormControlLabel value={0} control={<Radio />} label="No" />
-                                    <FormControlLabel value={1} control={<Radio />} label="Si" />
-                                </RadioGroup>
-                            </FormControl>
-                            {radios.banos !== "0" && !!radios.banos === true && (<TextField fullWidth multiline label="Cantidad" name="banos" type="number" placeholder="Sólo números" value={values.banos} onChange={handleChange} />)}
+                            <NumericFormat
+                                label='Baños'
+                                name="bathrooms"
+                                customInput={TextFieldCustom}
+                                onChange={handleChange}
+                                valueIsNumericString={true}
+                                value={values.bathrooms}
+                                allowLeadingZeros={false}
+                                error={errors.bathrooms && touched.bathrooms ? true : false}
+                                helperText={''}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                             <RadioGroupCustom label='A/A' value={values.air_conditioning} name='air_conditioning' options={[{ value: '0', label: 'No' }, { value: '1', label: 'Si' },]} onChange={handleChange} defaultvalue={'0'} />

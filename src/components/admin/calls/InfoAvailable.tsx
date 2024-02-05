@@ -14,9 +14,9 @@ export const InfoAvailable = ({
     _key: keyof IClient | KeyOfType;
     isClient?: boolean;
 }) => {
-    const property = call?.client?.[_key as Exclude<keyof IClient, KeyOfType>] ?? 'No disponible';
 
     if (isClient) {
+        const property = call?.client?.[_key as Exclude<keyof IClient, KeyOfType>] ?? 'No disponible';
         return (
             <Grid item xs={12} sm={6} md={3}>
                 <Box sx={styles.contentBox}>
@@ -27,6 +27,7 @@ export const InfoAvailable = ({
             </Grid>
         );
     } else {
+        const property = call?.[_key as keyof ICall] ?? 'No disponible';
         return (
             <Grid item xs={12} sm={6} md={3}>
                 <Box sx={styles.contentBox}>
